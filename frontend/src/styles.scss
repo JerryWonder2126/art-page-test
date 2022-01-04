@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./extras.scss";
+
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.5em !important;
+    color: $font-light;
+}
+
+// alpha my beginning, omega my very end
+
+body {
+    background-color: $background-color !important;
+}
+
+.main-heading {
+    text-transform: uppercase;
+    text-shadow: 3px 3px 3px black;
+}
+
+.card {
+
+    color: $font-light;
+    outline: unset;
+    border: none !important;
+    background-color: unset !important;
+
+    & .card-header {
+        background-color: darken($background-color, 90)t;
+        font-weight: 700;
+        border: none !important;
+    }
+
+    & .card-body{
+        background-color: darken($background-color, 10%);
+    }
+}
+
+// For form 
+.ng-touched.ng-invalid {
+    border-color: red;
+    border-width: 3px;
+    transition: border 0.2s ease-in;
+}

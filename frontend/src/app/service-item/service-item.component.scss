@@ -1,0 +1,64 @@
+@import "../../extras.scss";
+
+.item-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 4fr 6fr;
+    column-gap: 0;
+
+    & .item-img-box {
+        & .item-img {
+            // min-height: 40vh;
+            width: 100%;
+            min-height: 100%;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+    }
+
+    & .item-note {
+        position: relative;
+        // background-color: $card-background;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+        padding: 20px; 
+        color: $font-light;
+        border: 2px solid $font-light;
+
+        & .item-price {
+            line-height: 2em;
+            font-size: 2.2em;
+            font-weight: 700;
+        }
+
+        & .pre-text {
+            font-size: 1.2em;
+            font-weight: 500;
+        }
+
+        & .order-btn {
+            text-transform: uppercase;
+            font-weight: 500;
+            color: $font-light;
+
+            &:hover {
+                color: $font-dark;
+                font-weight: bolder;
+                transition: color 0.2s ease-in;
+            }
+        }
+    }
+
+    @include sm {
+        grid-template-columns: 6fr 6fr;
+        & .item-img-box {
+            & .item-img {
+                height: 35vh;
+            }
+        }   
+    }
+
+    @include md {
+        grid-template-columns: 4fr 6fr;   
+    }
+}

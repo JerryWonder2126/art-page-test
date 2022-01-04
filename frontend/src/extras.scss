@@ -1,0 +1,40 @@
+// BREAKPOINTS
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+$sm-size: map-get($grid-breakpoints, 'sm');
+$md-size: map-get($grid-breakpoints, 'md');
+$lg-size: map-get($grid-breakpoints, 'lg');
+
+@mixin lg {
+    @media (min-width: #{$lg-size}) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media (min-width: #{$md-size}) {
+        @content;
+    }
+}
+
+@mixin sm {
+    @media (min-width: #{$sm-size}) {
+        @content;
+    }
+}
+
+// Variables
+$section-height: calc(100vh - 110px);
+$background-color: rgba(0, 0, 0, 0.884);
+// $font-light: white;
+$font-light: rgb(248, 233, 235);
+$card-background: rgb(248, 233, 235);
+$font-dark: black;

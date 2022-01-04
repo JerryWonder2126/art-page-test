@@ -1,0 +1,62 @@
+<art-navigation></art-navigation>
+<div class="main-container">
+    <main class="container-fluid mb-4 about-section">
+        <div class="row g-3">
+            <div autofocus class="col-12 d-block d-sm-none">
+                <h2 class="main-heading about-heading">Who is SinaArtz?</h2>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-5 d-flex justify-content-center align-items-center">
+                <div class="img-box">
+                    <img src="assets/sample-box.png" class="img-fluid about-img" alt="">
+                </div>   
+            </div>
+            <div class="col-12 col-sm-6 col-lg-7">
+                <h2 class="d-none d-sm-block main-heading about-heading">Who is SinaArtz?</h2>
+                <p class="about-text">
+                    You can’t use calculations with normal SassScript operations like + and *. 
+                    If you want to write some math functions that allow calculations just write 
+                    them within their own calc() expressions—if they’re passed a bunch of numbers 
+                    with compatible units, they’ll return plain numbers as well, and if they’re passed 
+                    calculations they’ll return calculations.
+                </p>
+                <button type="button" (click)="toContactPage()" class="btn btn-dark btn-md d-none d-sm-block contact-btn">connect with me!</button>
+            </div> 
+        </div>
+        <div class="row my-2 d-block d-sm-none">
+            <div class="col d-flex justify-content-end">
+                <button type="button" (click)="toContactPage()" class="btn btn-dark btn-md contact-btn">connect with me!</button>
+            </div>
+        </div>
+    </main>
+
+    <div class="container-fluid mt-4 d-flex justify-content-center align-items-center services-section">
+        <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <h2>First</h2>
+                    <p>You can’t use calculations with normal SassScript operations like + and *. </p>
+                    <img src="assets/sample-box.png" alt="" class="d-block carousel-img">
+                </div>
+                <div class="carousel-item">
+                    <h2>Second</h2>
+                    <p>You can’t use calculations with normal SassScript operations like + and *. </p>
+                    <img src="assets/sample-box.png" alt="" class="d-block carousel-img">
+                </div>
+                <div class="carousel-item">
+                    <h2>Third</h2>
+                    <p>You can’t use calculations with normal SassScript operations like + and *. </p>
+                    <img src="assets/sample-box.png" alt="" class="d-block carousel-img">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+<art-footer></art-footer>

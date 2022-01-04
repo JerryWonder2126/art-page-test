@@ -1,0 +1,73 @@
+@import "../../extras.scss";
+
+.main-container {
+    color: $font-light;
+    // min-height: $section-height;
+    padding: 1em 0 4em 0;
+}
+
+.about-section {
+
+    & .img-box {
+        width: 80%;
+        & .about-img {
+            border-radius: 20px;
+            box-shadow: 3px 3px 4px darken($background-color, 10%);
+        }
+    }
+    & .about-text {
+        display: inline;
+        text-align: justify;
+    }
+
+    & .contact-btn {
+        text-transform: uppercase;
+        font-weight: 700;
+        border: 2px solid $font-light;
+        margin: 1em 0;
+
+        &:hover{
+            transition: border-color ease-out 3s;
+        }
+    }
+}
+
+.services-section {
+    position: relative;
+    & .carousel {
+        background-color: lighten($background-color, 20%);
+        padding: 1em;
+        color: $font-light;
+        border-radius: 20px;
+        width: 100vw;
+        max-width: 800px;
+        & .carousel-img {
+            width: 100%;
+            height: 50vh;
+            border-radius: 20px;
+        }
+    }
+}
+
+@include sm {
+    .about-section {
+        margin: 2em 0;
+        & .img-box {
+            width: 100%;  
+        }
+
+        & .contact-btn {
+            margin-top: 2em;
+        }
+    }
+
+    .services-section {
+        width: 90%;
+        max-width: 700px;
+        margin: 0 auto;
+
+        & > .carousel {
+            padding: 2em;
+        }
+    }
+}

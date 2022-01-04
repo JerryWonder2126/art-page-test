@@ -1,0 +1,11 @@
+@import "../../extras.scss";
+
+main {
+    color: $font-light;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    min-height: $section-height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,24 @@
+@import "../../extras.scss";
+
+.navbar {
+    box-shadow: 0px 3px 4px darken($background-color, 5%);
+
+    &.fixed-bottom {
+        box-shadow: 0px -4px 4px darken($background-color, 5%);
+    }
+
+    & .nav-link {
+        color: $font-light;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    & .active-nav {
+        color: red;
+    }
+
+    & .nav-icons {
+        width: 30px;
+        height: 30px;
+    }
+}

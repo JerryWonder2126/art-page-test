@@ -1,0 +1,104 @@
+@import "../../extras.scss";
+
+.main-container {
+    min-height: $section-height;
+    margin-bottom: 1em;
+
+    & .not-found {
+        color: $font-light;
+    }
+
+    & .item-img {
+        border-radius: 20px;
+    }
+
+    & .navtab {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        & .navtabs:first-of-type {
+            border-right: 3px solid $font-dark;
+            border-top-left-radius: 20px;
+            border-bottom-left-radius: 20px;
+        }
+
+        & .navtabs:last-of-type {
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        & .navtabs {
+            background-color: $font-light;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            & h5 {
+                color: $font-dark;
+                font-weight: 700;
+                // padding: 0;
+                margin: 0.5em 0;
+            }
+
+            & h5.active {
+                // padding-bottom: 0.1em;
+                border-bottom: 3px solid $font-dark;
+            }
+
+            &:hover {
+                cursor: pointer;
+
+                & h5 {
+                    // padding-bottom: 0.1em;
+                    border-bottom: 3px solid $font-dark;
+                    transition: border-bottom 0.2s ease-in;
+                }
+            }
+        }
+    }
+
+    & .itemBox {
+        
+        & .card .card-body {
+            border: 2px solid $font-light !important;
+            background-color: unset !important;
+            color: $font-light;
+            border-radius: 20px;
+            transform: scale3d(2);
+        }
+    }
+
+    & .offers {
+        margin: 1em 0;
+    }
+
+    @include sm {
+        main {
+            // height: 85vh;
+
+            & .item-img {
+                width: 380px;
+                height: 380px;
+            }
+        }
+        & .navtab {
+            & .navtabs:first-of-type, & .navtabs:last-of-type {
+                // border-radius: unset;
+                margin-top: 1.2em;
+            }
+        }
+    }
+
+    @include md {
+        main {
+            // height: 85vh;
+
+            & .item-img {
+                width: 100%;
+                height: unset;
+                max-height: 80%;
+            }
+        }
+    }
+}

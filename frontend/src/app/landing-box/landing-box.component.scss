@@ -1,0 +1,49 @@
+@import "../../extras.scss";
+
+.landing-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    border: 2px solid $font-light !important;
+    
+    & .card-img {
+        max-width: 100%;
+        height: 30vh;
+        filter: brightness(10%);
+        border-radius: 20px;
+    }
+
+    & .card-img-overlay {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & .card-title {
+            text-transform: uppercase;
+            color: $font-light;
+        }
+
+        & .call-to-action-btn {
+            width: 100%;
+            min-width: 176.3px;
+            text-transform: uppercase;
+            @include md {
+                &:hover {
+                    background-color: lighten($font-dark, 8%);
+                    color: $font-light;
+                    font-weight: 500;
+                    transition: background-color 0.2s, color 0.2s;
+                }
+            }
+        }
+    }
+
+    @include lg {
+        & .card-img {
+            height: 40vh;
+            // width: 30vh;
+        }
+    }
+
+}

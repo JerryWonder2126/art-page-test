@@ -1,0 +1,30 @@
+@import "../../extras.scss";
+
+.main-container {
+    color: $font-light;
+    min-height: $section-height;
+
+    & .submit-btn {
+        border: 2px solid $font-light;
+        width: 50%;
+        text-transform: uppercase;
+
+        & .btn-icon {
+            width: 25px;
+            opacity: 0;
+        }
+
+        &:hover {
+            background: $font-light;
+            color: $font-dark;
+            font-weight: 500;
+            transition: background-color 0.2s ease-in, color 0.2s ease-in;
+
+            & .btn-icon {
+                opacity: 1;
+                transition: opacity 0.2s ease-in;
+            }
+        }
+
+    }
+}

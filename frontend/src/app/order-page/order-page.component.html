@@ -1,0 +1,78 @@
+<art-navigation></art-navigation>
+<div class="container-fluid main-container">
+    <main *ngIf="offer" class="container-fluid p-0">
+        <div class="row">
+            <div class="col-12 col-md-5">
+                <h2 class="main-heading my-2">Order your {{ offer.title }}</h2>
+                <!-- <img [src]="offer.imgURL" class="img-fluid mb-2 item-img" [alt]="offer.title"> -->
+                <div *ngIf="offer.imgURL" class="item-img-box">
+                    <!-- <img [src]="imgURL" class="item-img" [alt]="title"> -->
+                    <div id="carousel" class="carousel" [ngClass]="{'slide': offer.imgURL.length > 1}" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img [src]="offer.imgURL[0]" alt="" class="d-block item-img">
+                            </div>
+                            <div *ngFor="let url of offer.imgURL[1]" class="carousel-item">
+                                <img [src]="url" alt="" class="d-block item-img">
+                            </div>
+                        </div>
+                        <button *ngIf="offer.imgURL.length > 1" class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button *ngIf="offer.imgURL.length > 1" class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-7">
+                <div class="container-fluid p-0">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <div class="mb-2 navtab">
+                                <div (click)="showDesc()" class="navtabs">
+                                    <h5 type="button" [class]="{'active': descState}">description</h5>
+                                </div>
+                                <div (click)="showForm()" class="navtabs">
+                                    <h5 type="button" [class]="{'active': formState}">Place Order</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="formState" class="col col-12 itemBox">
+                            <div class="card">
+                                <div class="card-body">
+                                    <art-order-form></art-order-form>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="descState" class="col col-12 itemBox">
+                            <div class="card">
+                                <div class="card-body">
+                                    <p>{{ offer.long_description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </main>
+    <main *ngIf="!offer" class="row">
+        <div class="col">
+            <p class="p-3 not-found">Sorry, we couldn't find what you're searching for.</p>
+        </div>
+    </main>
+    <div class="row">
+        <div class="col-12">
+            <h2 class="my-2 pt-3 main-heading">Take a look at these amazing samples</h2>
+        </div>
+    </div>
+    <div *ngIf="relatedOffers" class="row">
+        <div *ngFor="let offer of relatedOffers.offers" class="col-12 col-md-6 col-lg-4 offers">
+            <art-service-item [title]="offer.title" [short_description]="offer.short_description" [imgURL]="offer.imgURL" [price]="offer.price"></art-service-item>
+        </div>
+    </div>
+</div>
+<art-footer></art-footer>

@@ -1,5 +1,5 @@
 import {ISocialInterface} from './social.interface';
-import request from 'request';
+import got from 'got';
 
 export function whatsapp(form: any) {
   const response: ISocialInterface = {ok: false};

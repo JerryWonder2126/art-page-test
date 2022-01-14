@@ -1,0 +1,65 @@
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="sectionPreviewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Preview</h5>
+          <button type="button" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div *ngIf="service" class="modal-body">
+            <h2>{{ service.title }}</h2>
+            <div>
+                <img [src]="service.imgurl" [alt]="service.title" class="img-fluid">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="sectionEditModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Edit</h5>
+          <button type="button" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <art-manage-sections [service]="service" [update]="true" (formActionComplete)="closeBtn.click()"></art-manage-sections>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" #closeBtn data-bs-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Modal -->
+   <div class="modal fade" id="sectionDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-light">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Important</h5>
+          <button type="button" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div *ngIf="service" class="modal-body">
+            <p>
+                Are you sure you want to delete <b>{{ service.title }}</b> section?<br/>
+                <b>All offers under this section will also get deleted as a result of this action. </b>  
+            </p>     
+            <p class="text-danger"><b>Please note that this action cannot be reversed.</b></p> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">cancel</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteActionApprove()">delete</button>
+        </div>
+      </div>
+    </div>
+  </div>

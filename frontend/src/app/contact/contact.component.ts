@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { SectionItemInterface } from '../extra-packs/interfaces/general-interfaces';
+import { OffersService } from '../services/offers.service';
+import { SocialService } from '../services/social/social.service';
 
 @Component({
   selector: 'art-contact',
@@ -9,44 +13,38 @@ import { NgForm } from '@angular/forms';
 })
 export class ContactComponent implements OnInit {
 
+  services!: Observable<SectionItemInterface[]>;
+  fd: FormData = new FormData();
+
   ownersNumber: string = '2348154955526';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private offersService: OffersService, private socialService: SocialService) { }
 
   ngOnInit(): void {
+    this.services = this.offersService.services;
   }
 
   processForm(form: NgForm) {
-    console.log(form.value);
+    if (form.valid) {
+      this.fd.set('data', JSON.stringify(form.value));
+    }
+    return form.valid;
   }
   sendToWhatsapp(form: NgForm) {
-    this.processForm(form);
-    let message = `Hello, SinaArtz! ${form.value.message}. Thank you.`;
-    let url = `https://wa.me/${this.ownersNumber}?text=${message}`;
-    console.log(url);
-    window.location.replace(url);
+
+    const valid = this.processForm(form);
+    if (valid) {
+      this.socialService.sendToWhatsapp(this.fd).subscribe(res => {
+        location.href = res;
+      });
+    }
   }
 
   sendToTelegram(form: NgForm) {
-    let token = "5023652672:AAFrGbchR6BMnn_XYuE55sOWwNLsqnSXolA";
-    this.processForm(form);
-    let message = `<b>Hello, SinaArtz!</b>\n\n${form.value.message}.\n\n<b>You can reach me through ${form.value.email}. Thank you.</b>`;
-    let data = {
-      chat_id: '1249927233',
-      text: message,
-      parse_mode: 'html'
+    const valid = this.processForm(form);
+    if (valid) {
+      this.socialService.sendToTelegram(this.fd);
     }
-    let url = `https://api.telegram.org/bot${token}/sendMessage`;
-    console.log(url);
-    // window.location.replace(url);
-    this.http.post(url, data).subscribe((obj) => {
-      console.log(obj);
-      //Show success alert
-      form.reset()
-    }, (err) => {
-      //Show error alert
-      console.log('error: ', err);
-    })
   }
 
 }

@@ -1,7 +1,7 @@
-<art-navigation></art-navigation>
+<art-navigation [services]="services"></art-navigation>
 <main class="container-fluid main-container">
   <div class="text-uppercase row d-flex align-items-center justify-content-center">
-    <div class="col-11 col-sm-7 ">
+    <div class="col-12 col-sm-7 ">
       <fieldset class="my-3">
         <legend>Contact ME</legend>
         <form #contactForm="ngForm" (ngSubmit)="processForm(contactForm)">
@@ -14,16 +14,22 @@
                 <label for="msgField" class="form-label">Message</label>
                 <textarea ngModel name="message" class="form-control" id="msgField" rows="3" placeholder="Enter your message here..." required></textarea>
             </div>
-            <div class="flex">
-              <button type="submit" [ngClass]="{'disabled': !contactForm.valid}" class="btn btn-dark btn-md submit-btn">Send as Mail
-                <img src="assets/icons/email.png" class="btn-icon" style="width: 30px;" alt="email icon">
-              </button>
-              <button (click)="sendToWhatsapp(contactForm)" type="button" [ngClass]="{'disabled': !contactForm.valid}" class="btn btn-dark btn-md submit-btn">Send to whatsapp
-                <img src="assets/icons/whatsapp.png" class="btn-icon" alt="whatsapp icon">
-              </button>
-              <button (click)="sendToTelegram(contactForm)" type="button" [ngClass]="{'disabled': !contactForm.valid}" class="btn btn-dark btn-md submit-btn w-100 mt-2">Send to telegram
-                <img src="assets/icons/telegram.png" class="btn-icon" alt="telegram icon">
-              </button>
+            <div class="row justify-content-center">
+              <div class="col-6">
+                <button type="submit" [ngClass]="{'disabled': !contactForm.valid}" class="btn btn-light btn-md submit-btn">Send as Mail
+                  <img src="assets/icons/email.png" class="btn-icon" style="width: 30px;" alt="email icon">
+                </button>
+              </div>
+              <div class="col-6">
+                <button (click)="sendToWhatsapp(contactForm)" type="button" [ngClass]="{'disabled': !contactForm.valid}" class="btn btn-light btn-md submit-btn">Send to whatsapp
+                  <img src="assets/icons/whatsapp.png" class="btn-icon" alt="whatsapp icon">
+                </button>
+              </div>
+              <div class="col">
+                <button (click)="sendToTelegram(contactForm)" type="button" [ngClass]="{'disabled': !contactForm.valid}" class="btn btn-light btn-md submit-btn mt-2">Send to telegram
+                  <img src="assets/icons/telegram.png" class="btn-icon" alt="telegram icon">
+                </button>
+              </div>
             </div>
           </form>
     </fieldset>

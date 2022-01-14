@@ -1,23 +1,23 @@
-<art-navigation (NavBtnClicked)="reloadPage($event)"></art-navigation>
-<div *ngIf="offerForService" class="container-fluid main-container">
+<art-navigation [services]="services"></art-navigation>
+<div *ngIf="offers" class="container-fluid main-container">
     <div class="row">
         <div class="col">
             <h2 class="main-heading">Collection of {{ title }}</h2>
         </div>
     </div>
-    <div *ngIf="offerForService.offers.length" class="row gy-2 d-flex justify-content-center">
-        <div *ngFor="let service of offerForService.offers" class="col col-12 col-sm-6 col-lg-4">
-            <art-service-item [service]="title" [title]="service.title" [price]="service.price" [short_description]="service.short_description" [imgURL]="service.imgURL"></art-service-item>
+    <div *ngIf="offers | async" class="row gy-2 d-flex justify-content-center">
+        <div *ngFor="let service of offers | async" class="col col-12 col-sm-6 col-lg-4">
+            <art-service-item [service]="service"></art-service-item>
         </div>
     </div>
-    <div *ngIf="!offerForService.offers.length" class="row gy-2 d-flex justify-content-center">
+    <div *ngIf="!offers" class="row gy-2 d-flex justify-content-center">
         <div>
             <p>Place order for your {{ title }} now.</p>
         </div>
         <art-order-form></art-order-form>
     </div> 
 </div>
-<div *ngIf="!offerForService" class="container-fluid main-container">
+<div *ngIf="!offers" class="container-fluid main-container">
     <div class="row gy-2 d-flex justify-content-center">
         <div>
             <p>Place order for your {{ title }} now.</p>

@@ -27,9 +27,10 @@ export class OrderFormComponent implements OnInit {
     const file: File = image.files[0];
     const reader = new FileReader();
 
-    // reader.addEventListener('load', (event: any) => {
-    //   this.fd.append('image', new ImageSnippet(event.target.result, file));
-    // });
+    reader.addEventListener('load', (event: any) => {
+      this.fd.append('image', (new ImageSnippet(event.target.result, file)).file);
+    });
+    
   }
 
 }

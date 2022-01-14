@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutPageComponent } from './about-page/about-page.component';
+import { MainPageComponent } from './admin/main-page/main-page.component';
 import { ContactComponent } from './contact/contact.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { OrderPageComponent } from './order-page/order-page.component';
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: 'about', component: AboutPageComponent},
   {path: 'contact', component: ContactComponent},
   {path: 'section', component: SectionPageComponent},
-  {path: 'order/:type/:id', component: OrderPageComponent},
+  {path: 'order', component: OrderPageComponent},
+  {path: 'admin', component: MainPageComponent},
   {path: '**', redirectTo: 'home'},
 ];
 

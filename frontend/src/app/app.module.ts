@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { LandingBoxComponent } from './landing-box/landing-box.component';
+import { LandingBoxComponent } from './landing-page/landing-box/landing-box.component';
 import { ContactComponent } from './contact/contact.component';
 import { AboutPageComponent } from './about-page/about-page.component';
 import { SectionPageComponent } from './section-page/section-page.component';
@@ -17,6 +17,11 @@ import { OrderFormComponent } from './order-form/order-form.component';
 import { AutoFocus } from './helpers/auto-focus.directive';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
+import { ManageOffersComponent } from './admin/forms/offers/manage-offers.component';
+import { MainPageComponent } from './admin/main-page/main-page.component';
+import { ManageSectionsComponent } from './admin/forms/sections/manage-sections.component';
+import { SectionModalComponent } from './admin/modals/section/section-modal.component';
+import { OfferModalComponent } from './admin/modals/offer/offer-modal.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +37,12 @@ import { FooterComponent } from './footer/footer.component';
     OrderFormComponent,
     AutoFocus,
     NavigationComponent,
-    FooterComponent
+    FooterComponent,
+    ManageOffersComponent,
+    MainPageComponent,
+    ManageSectionsComponent,
+    SectionModalComponent,
+    OfferModalComponent
   ],
   imports: [
     BrowserModule,

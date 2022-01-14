@@ -1,0 +1,32 @@
+.container {
+    width: 100%;
+    max-width: 750px;
+
+    & .back-btn {
+        text-transform: uppercase;
+    }
+
+    & .head-section {
+        position: relative;
+        padding: 0 1em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        & button {
+            &:hover {
+                font-weight: 700;
+                transform: scale(1.2);
+                transition: transform 0.05s ease-in;
+            }
+        }
+    }
+
+    & tbody tr:hover {
+        cursor: pointer;
+    }
+
+    & td button {
+        margin: 0.2em;
+    }
+}

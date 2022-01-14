@@ -10,13 +10,13 @@
 </div> -->
 
 <div class="item-card">
-    <div *ngIf="imgURL" class="item-img-box">
-        <img [src]="imgURL[0]" class="item-img" [alt]="title">
+    <div *ngIf="service.images" class="item-img-box">
+        <img [src]="service.images[0]" class="item-img" [alt]="service.title">
     </div>
         
     <div class="item-note d-flex align-items-center">
         <div>
-            <p><span class="pre-text">Selling for</span> <br> <span class="item-price">${{ price }}</span> <br> {{ short_description }}</p>  
+            <p><span class="pre-text">Selling for</span> <br> <span class="item-price">{{ service.price }}</span> <br> {{ service.short_description }}</p>  
             <button (click)="orderButtonClicked()" class="btn btn-md btn-outline-light border-2 order-btn">Place Order</button>   
         </div> 
     </div>

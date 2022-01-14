@@ -1,6 +1,7 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MainDataInterface } from '../extra-packs/interfaces/general-interfaces';
+import { Observable, Subscription } from 'rxjs';
+import { MainDataInterface, OfferInterface, SectionItemInterface } from '../extra-packs/interfaces/general-interfaces';
 import { OffersService } from '../services/offers.service';
 
 @Component({
@@ -12,30 +13,25 @@ export class SectionPageComponent implements OnInit {
 
 
   title!: string;
-  offerForService!: MainDataInterface;
+  section!: string;
+  offers!: Observable<OfferInterface[]>;
+  offersReady!: boolean;
+  services!: Observable<SectionItemInterface[]>;
 
-  constructor(private offersService: OffersService, private route: ActivatedRoute) {
+  constructor(private offersService: OffersService, private route: ActivatedRoute) {}
+  
+  loadVars() {
     this.route.queryParams.subscribe(params => {
-      this.title = decodeURIComponent(params.type);
-    });
+      this.section = decodeURIComponent(params.section);
+      this.title = decodeURIComponent(params.title);
+      this.offersService.getOffersForService(this.section);
+    });    
   }
 
   ngOnInit(): void {
-    let returnedOffers = this.fetchOffersForServices();
-    
-    if(returnedOffers) {
-      this.offerForService = returnedOffers;
-    }
-  }
-
-  reloadPage(title: string) {
-    this.title = title;
-    console.log('event ran');
-    this.ngOnInit();
-  }
-
-  fetchOffersForServices() {
-    return this.offersService.getDataByService(this.title);
+    this.offers = this.offersService.offers;
+    this.services = this.offersService.services;
+    this.loadVars();
   }
 
 }

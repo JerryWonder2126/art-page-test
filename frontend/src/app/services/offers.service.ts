@@ -1,230 +1,105 @@
 import { Injectable } from '@angular/core';
-import { MainDataInterface, SectionInnerItemInterface, SectionItemInterface } from '../extra-packs/interfaces/general-interfaces';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { MainDataInterface, OfferInterface, SectionInnerItemInterface, SectionItemInterface } from '../extra-packs/interfaces/general-interfaces';
+import { BackendService } from './backend/backend.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OffersService {
 
-  private _mainData: MainDataInterface[] = [
-    {
-      title: 'potrait drawing',
-      imgURL: "assets/sample-box.png",
-      offers: [
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        },
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        },
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        }
-      ]
-    },
-    {
-      title: 'abstract art',
-      imgURL: "assets/sample-box.png",
-      offers: [
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        },
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        },
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        }
-      ]
-    },
-    {
-      title: 'crafts',
-      imgURL: "assets/sample-box.png",
-      offers: [
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        },
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        },
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        }
-      ]
-    },
-    {
-      title: 'face painting',
-      imgURL: "assets/sample-box.png",
-      offers: [
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        },
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        },
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        }
-      ]
-    },
-    {
-      title: 'pencil drawings',
-      imgURL: "assets/sample-box.png",
-      offers: [
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        },
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        },
-        {
-          title: '40 inches painting',
-          short_description: 'short note on object',
-          long_description: `Some text for description. are used for the storing of energy in a 
-          rotating machine and to limit speed fluctuations. Formulae are given for the 
-          calculation of the moment of inertia of flywheels and for speed and energy fluctuation`,
-          imgURL: ["assets/sample-box.png"],
-          price: '20K'
-        }
-      ]
-    },
-    // {
-    //   title: 'picture frames',
-    //   imgURL: "assets/sample-box.png",
-    //   offers: []
-    // }
-  ];
+  private _offers: BehaviorSubject<OfferInterface[]> = new BehaviorSubject<OfferInterface[]>([]);
 
-  private services: SectionItemInterface[] = [
-    {
-      title: 'potrait drawing',
-      imgURL: "assets/sample-box.png"
-    },
-    {
-      title: 'abstract art',
-      imgURL: "https://drive.google.com/uc?id=QlkuYM_ZTq6ZXEqYgHAqDlr8H8lW6982"
-    },
-    {
-      title: 'crafts',
-      imgURL: "assets/sample-box.png"
-    },
-    {
-      title: 'face painting',
-      imgURL: "assets/sample-box.png"
-    },
-    {
-      title: 'pencil drawings',
-      imgURL: "assets/sample-box.png"
-    },
-    {
-      title: 'picture frames',
-      imgURL: "assets/sample-box.png"
-    }
-  ];
+  private _services: BehaviorSubject<SectionItemInterface[]> = new BehaviorSubject<SectionItemInterface[]>([]);
 
-  constructor() { }
-
-  get mainData() {
-    return this._mainData;
+  constructor (private backendService: BackendService) {
+    this.init();
   }
 
-  getServices() {
-    return this.services;
+  init() {
+    this.loadServices();
+    this.backendService.offers.subscribe(response => {
+      this._offers.next(response);
+    });
   }
 
-  getDataByService = (title:string): MainDataInterface|undefined => this._mainData.find((obj) => obj.title === title);
+  get offers() {
+    return this._offers.asObservable();
+  }
 
-  getOffer(service: string, title: string): SectionInnerItemInterface|undefined {
-    let offer = undefined;
-    let requestedService = this.mainData.find((obj) => obj.title === service);
-    if (requestedService) {
-      offer = requestedService.offers.find(obj => obj.title === title);
-    }
-    return offer;
+  get services() {
+    return this._services.asObservable();
+  }
+
+  loadServices() {
+    this.backendService.sections.subscribe(response => {
+      this._services.next(response);
+    });
+  }
+
+  updateSectionTitle(body: any) {
+    return this.backendService.updateSectionTitle(body)
+  }
+
+  getOffersForService(section_hash: string) {
+    this.backendService.getOffersForService(section_hash);
+  }
+
+  getCurrentOffers() {
+    return this._offers.getValue();
+  }
+
+  addOffer(form: FormData, section_hash: string): Observable<any> {
+    return this.backendService.addOffer(form, section_hash).pipe(map(response => {
+      const newOffer = response.rows as OfferInterface;
+      const updatedOffers = [
+        ...this._offers.getValue(),
+        newOffer
+      ]
+      this._offers.next(updatedOffers);
+      return newOffer;
+    }));;
+  }
+
+  updateOffer(offer: OfferInterface) {
+    return this.backendService.updateOffer(offer)
+  }
+
+  deleteOffer(uhash: string, section_hash: string) {
+    return this.backendService.deleteOffer(uhash, section_hash).pipe(map(response => {
+      return 'deleted succesfully';
+    }));
+  }
+
+  getServiceTitleFromHash(uhash: string) {
+    return this.services.pipe(map(response => {
+      const foundItem = response.find((value) => value.uhash === uhash);
+      console.log(foundItem);
+      return foundItem ? foundItem.title : '';
+    }));
+  }
+
+  addSection(body: any) {
+    return this.backendService.addSection(body);
+  }
+
+  deleteSection(uhash: string) {
+    return this.backendService.deleteSection(uhash).pipe(map(response => {
+      return 'deleted succesfully';
+    }));
+  }
+
+  getOfferTitleFromHash(uhash: string) {
+    return this.offers.pipe(map(response => {
+      const foundItem = response.find((value) => value.uhash === uhash);
+      console.log(foundItem);
+      return foundItem ? foundItem.title : '';
+    }));
+  }
+
+  getOffer(offer_hash: string) {
+    return this._offers.getValue().find((value) => value.uhash === offer_hash);
   }
 
 }

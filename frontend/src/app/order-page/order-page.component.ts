@@ -1,6 +1,8 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MainDataInterface, SectionInnerItemInterface } from '../extra-packs/interfaces/general-interfaces';
+import { Observable } from 'rxjs';
+import { MainDataInterface, OfferInterface, SectionInnerItemInterface, SectionItemInterface } from '../extra-packs/interfaces/general-interfaces';
 import { OffersService } from '../services/offers.service';
 
 @Component({
@@ -10,40 +12,35 @@ import { OffersService } from '../services/offers.service';
 })
 export class OrderPageComponent implements OnInit, OnChanges {
 
-  service!: string;
-  title!: string;
+  offer_hash!: string;
   descState: boolean = true;
   formState: boolean = !this.descState;
-  offer!: SectionInnerItemInterface;
-  relatedOffers!: MainDataInterface;
+  offer!: OfferInterface | undefined;
+  relatedOffers!: any;
+  fd: FormData = new FormData();
+  services!: Observable<SectionItemInterface[]>;
 
   constructor(private offerService: OffersService, private route: ActivatedRoute) {
-    this.route.params.subscribe(params => {
-      this.service = params.type;
-      this.title = params.id;
+    this.route.queryParams.subscribe(params => {
+      this.offer_hash = params.offer;
     });
   }
 
   ngOnInit(): void {
-    let returnedOffer = this.getOffer();
-    let returnedServices = this.getRelatedServices();
-    if (returnedOffer) {
-      this.offer = returnedOffer;
-    }
-    if (returnedServices) {
-      this.relatedOffers = returnedServices;
-    }
+    this.getOffer();
+    this.relatedOffers = this.offerService.getCurrentOffers();
+    this.services = this.offerService.services;
   }
 
   ngOnChanges(): void { }
 
   getOffer() {
-    return this.offerService.getOffer(this.service, this.title);
+    this.offer = this.offerService.getOffer(this.offer_hash);
   }
 
-  getRelatedServices () {
-    return this.offerService.getDataByService(this.service);
-  }
+  // getRelatedServices () {
+  //   return this.offerService.getDataByService(this.service);
+  // }
 
   showDesc() {
     this.descState = true;
@@ -54,4 +51,22 @@ export class OrderPageComponent implements OnInit, OnChanges {
     this.formState = true;
     this.descState = !this.formState;
   }
+
+  processAddForm(form: NgForm) {
+    console.log(this.fd);
+  }
+
+  addImage(ev: any) {
+    const file = ev.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+      this.fd.append('image', (new ImageSnippet(event.target.result, file)).file);
+    });
+    
+  }
+}
+
+class ImageSnippet {
+  constructor (public src: string, public file: File) { }
 }

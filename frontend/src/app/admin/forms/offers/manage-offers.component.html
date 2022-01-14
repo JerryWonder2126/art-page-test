@@ -1,0 +1,32 @@
+<form #offersForm="ngForm" (ngSubmit)="processForm(offersForm)">
+    <div class="mb-2">
+        <label for="section_hash">Section</label>
+        <select name="section_hash" id="section_hash" class="form-control" required [(ngModel)]="offer.section_hash" [disabled]="update">
+            <!-- <option value="">-- select --</option> -->
+            <option [value]="serv.uhash" *ngFor="let serv of services | async">{{ serv.title }}</option>
+        </select>
+    </div>
+    <div class="mb-2">
+        <label for="title">title</label>
+        <input type="text" name="title" id="title" class="form-control" [(ngModel)]="offer.title" required>
+    </div>
+    <div class="mb-2">
+        <label for="short_description">short description</label>
+        <input type="text" name="short_description" id="short_description" class="form-control" [(ngModel)]="offer.short_description" required>
+    </div>
+    <div class="mb-2">
+        <label for="long_description">long description</label>
+        <textarea maxlength="200" name="long_description" id="long_description" class="form-control" [(ngModel)]="offer.long_description" required></textarea>
+    </div>
+    <div class="mb-2">
+        <label for="price">price</label>
+        <input type="number" name="price" id="price" class="form-control" [valueAsNumber]="offer.price" ngModel required>
+    </div>
+    <div *ngIf="!update" class="mb-2">
+        <label for="images">images</label>
+        <input ngModel #imageField (change)="processImage(imageField)" type="file" accept="image/*" name="images" id="images" class="form-control" required multiple>
+    </div>
+    <div class="mb-2">
+        <input type="submit" [value]="btnText" id="submit" class="form-control btn btn-md" [ngClass]="{'btn-light': update, 'btn-dark': !update}">
+    </div>
+</form>

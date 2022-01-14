@@ -10,13 +10,14 @@ export class LandingBoxComponent implements OnInit {
 
   @Input() title!: string;
   @Input() imgUrl!: string;
+  @Input() uhash!: string;
   urlString!: string;
   queryParams!: Params;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.queryParams = {'type': this.title}
+    this.queryParams = {'section': this.uhash, 'title': this.title};
   }
 
   openSection () {

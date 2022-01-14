@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { SectionItemInterface } from '../extra-packs/interfaces/general-interfaces';
+import { OffersService } from '../services/offers.service';
 
 @Component({
   selector: 'art-about-page',
@@ -7,10 +10,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./about-page.component.scss']
 })
 export class AboutPageComponent implements OnInit {
+  services!: Observable<SectionItemInterface[]>;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private offersService: OffersService) { }
 
   ngOnInit(): void {
+    this.services = this.offersService.services;
   }
 
   toContactPage() {

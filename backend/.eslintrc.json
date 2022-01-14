@@ -1,0 +1,24 @@
+{
+  "extends": "./node_modules/gts/",
+  "rules": {
+    // "no-inner-declarations": "off",
+    // "lodash/prefer-lodash-method": "off",
+    // "lodash/prefer-lodash-typecheck": "off",
+    // "lodash/preferred-alias": [2, { "ignoreMethods": ["extend"] }],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "allowTemplateLiterals": true,
+        "avoidEscape": true
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": ["off"]
+  }
+}

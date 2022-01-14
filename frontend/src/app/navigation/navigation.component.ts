@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Params, Router } from '@angular/router';
-import { SectionItemInterface } from '../extra-packs/interfaces/general-interfaces';
+import { Observable } from 'rxjs';
+import { OfferInterface, SectionItemInterface } from '../extra-packs/interfaces/general-interfaces';
 import { OffersService } from '../services/offers.service';
 
 @Component({
@@ -10,24 +11,17 @@ import { OffersService } from '../services/offers.service';
 })
 export class NavigationComponent implements OnInit {
 
-  services!: SectionItemInterface[];
-  queryParams!: Params;
-  @Output() NavBtnClicked: EventEmitter<string> = new EventEmitter<string>();
+  @Input() services!: Observable<SectionItemInterface[]>;
+  @Output() NavBtnClicked: EventEmitter<any> = new EventEmitter<any>();
 
   constructor (private offersService: OffersService, private router: Router) {  }
 
-  ngOnInit(): void {
-    this.services = this.offersService.getServices();
+  ngOnInit(): void { }
+
+  openSection (service: OfferInterface) {
+    const queryParams: Params = {'section': service.uhash, 'title': service.title};
+    this.router.navigate(['section'], {
+      queryParams: queryParams
+    });
   }
-
-  openSection (title: string) {
-    // this.queryParams = {'type': title};
-    // this.router.navigate(['section'], {
-    //   queryParams: this.queryParams
-    // });
-    this.NavBtnClicked.emit(title);
-    console.log('done');
-  }
-
-
 }

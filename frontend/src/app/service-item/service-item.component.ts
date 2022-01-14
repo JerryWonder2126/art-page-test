@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
+import { OfferInterface } from '../extra-packs/interfaces/general-interfaces';
 
 @Component({
   selector: 'art-service-item',
@@ -8,19 +9,19 @@ import { Router } from '@angular/router';
 })
 export class ServiceItemComponent implements OnInit {
 
-  @Input() title!: string;
-  @Input() short_description!: string;
-  @Input() imgURL!: string[];
-  @Input() price!: string;
-  @Input() service!: string;
+  @Input() service!: OfferInterface;
+  queryParams!: Params;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.queryParams = {offer: this.service.uhash}
   }
 
   orderButtonClicked() {
-    this.router.navigate(['order', this.service, this.title]);
+    this.router.navigate(['order'], {
+      queryParams: this.queryParams
+    });
   }
 
 }

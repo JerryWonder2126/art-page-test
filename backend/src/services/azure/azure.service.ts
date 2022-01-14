@@ -1,0 +1,93 @@
+// eslint-disable-next-line node/no-extraneous-import
+import {BlobServiceClient, ContainerClient} from '@azure/storage-blob';
+import {v1 as uuidv1} from 'uuid';
+import {IAzureResponse} from './azure.interface';
+
+export class AzureService {
+  private AZURE_STORAGE_CONNECTION_STRING: string = process.env
+    .AZURE_STORAGE_CONNECTION_STRING as string;
+
+  constructor(
+    public containerName: string,
+    public storageAccountName: string
+  ) {}
+
+  private async connectToAzureBlobService() {
+    return await BlobServiceClient.fromConnectionString(
+      this.AZURE_STORAGE_CONNECTION_STRING
+    );
+  }
+
+  private async prepareForConnection() {
+    try {
+      const blobServiceClient: BlobServiceClient =
+        await this.connectToAzureBlobService();
+      const containerClient: ContainerClient =
+        await blobServiceClient.getContainerClient(this.containerName);
+      console.log('Connected to Azure');
+      return containerClient;
+    } catch (err: any) {
+      console.log(JSON.stringify(err));
+      throw new Error(JSON.stringify(err));
+    }
+  }
+
+  async getContainerClient(containerName?: string) {
+    // Get a reference to a container
+    try {
+      return containerName
+        ? await (
+            await this.connectToAzureBlobService()
+          ).getContainerClient(containerName)
+        : await this.prepareForConnection();
+    } catch (err: any) {
+      throw new Error(JSON.stringify(err));
+    }
+  }
+
+  async createNewContainer(containerName: string) {
+    const response: IAzureResponse = {};
+    try {
+      // Create a unique name for the container
+      containerName += uuidv1();
+      const containerClient = await this.getContainerClient(containerName);
+      // Create the container
+      const createContainerResponse = await containerClient.create();
+      console.log(
+        'Container was created successfully. requestId: ',
+        createContainerResponse.requestId
+      );
+      response.name = containerName;
+    } catch (err: any) {
+      console.log(err);
+      response.error = true;
+      throw new Error(JSON.stringify(err));
+    }
+    return response;
+  }
+
+  async uploadToBlob(file: any, containerClient?: ContainerClient) {
+    const response: IAzureResponse = {name: uuidv1()};
+    const imgurl = `https://${this.storageAccountName}.blob.core.windows.net/${this.containerName}/`;
+    try {
+      if (!containerClient) {
+        containerClient = await this.prepareForConnection();
+      }
+      const fileName = 'art-page' + uuidv1();
+      // Get a block blob client
+      const blockBlobClient = await containerClient.getBlockBlobClient(
+        fileName
+      );
+      const uploadBlobResponse = await blockBlobClient.upload(
+        file.data,
+        file.size
+      );
+      response.name = imgurl + fileName;
+      response.requestId = uploadBlobResponse.requestId;
+    } catch (err: any) {
+      response.error = true;
+      throw new Error(JSON.stringify(err));
+    }
+    return response;
+  }
+}

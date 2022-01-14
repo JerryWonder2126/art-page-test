@@ -1,6 +1,8 @@
 export interface SectionItemInterface {
+    id: string;
     title: string;
-    imgURL: string;
+    imgurl: string;
+    uhash: string;
 }
 
 export interface SectionInnerItemInterface {
@@ -16,3 +18,30 @@ export interface MainDataInterface {
     imgURL: string;
     offers: SectionInnerItemInterface[];
 }
+export interface BackendResponseInterface {
+    rows: any;
+    error: string;
+}
+
+export interface OfferInterface {
+    id?: string,
+    title: string,
+    short_description: string,
+    long_description: string,
+    images: string[],
+    price: Number,
+    uhash?: string,
+    section_hash: string
+}
+
+export interface IUpdateObject {
+    keys: string[],
+    values: any[]
+}
+export interface IState {
+    sectionsAddFormVisible: boolean,
+    offersAddFormVisible: boolean,
+    offersVisibility: boolean,
+    activeOffer: OfferInterface,
+    activeService: SectionItemInterface
+  }

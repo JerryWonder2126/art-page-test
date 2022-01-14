@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { SectionItemInterface } from '../extra-packs/interfaces/general-interfaces';
 import { OffersService } from '../services/offers.service';
 
@@ -9,12 +10,12 @@ import { OffersService } from '../services/offers.service';
 })
 export class LandingPageComponent implements OnInit {
 
-  offers!: SectionItemInterface[];
+  services!: Observable<SectionItemInterface[]>;
 
   constructor(private offersService: OffersService) { }
 
   ngOnInit(): void {
-    this.offers = this.offersService.getServices();
+    this.services = this.offersService.services;
   }
 
 }

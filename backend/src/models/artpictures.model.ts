@@ -5,6 +5,10 @@ import {AzureService} from '../services/azure/azure.service';
 import {
   saveImage,
   saveImageBatch,
+  updateSingleImage,
+  parseImgURL,
+  deleteSingleImage,
+  deparseImgURL,
 } from '../services/upload/upload-image.service';
 
 class SectionsModel {
@@ -30,7 +34,7 @@ class SectionsModel {
     try {
       const query = `SELECT * FROM ${this.tableName}`;
       const res = await client.query(query);
-      response.rows = res.rows;
+      response.rows = parseImgURL(res.rows, true);
     } catch (err: any) {
       response.error = err.stack;
     }
@@ -74,15 +78,21 @@ class SectionsModel {
     return response;
   }
 
-  async updateImgurl(uhash: string, imgURL: string) {
+  async updateImgurl(body: any, image: any) {
     const response: IParsedResponse = {
       rows: [],
       error: '',
     };
     try {
-      const query = `UPDATE ${this.tableName} SET imgurl = '${imgURL}' WHERE uhash = '${uhash}' RETURNING *`;
-      const res = await client.query(query);
-      response.rows = res.rows;
+      const deleteHandle = await deleteSingleImage(
+        deparseImgURL([body.value])[0]
+      );
+      if (deleteHandle) {
+        const azureResponse = await updateSingleImage(image);
+        const query = `UPDATE ${this.tableName} SET imgurl = '${azureResponse}' WHERE uhash = '${body.uhash}' RETURNING *`;
+        const res = await client.query(query);
+        response.rows = res.rows;
+      }
     } catch (err: any) {
       response.error = err.stack;
     }
@@ -90,15 +100,15 @@ class SectionsModel {
     return response;
   }
 
-  async update(uhash: string, newValue: string, type: string) {
+  async update(body: any, file?: any) {
     let response: IParsedResponse = {
       rows: [],
       error: '',
     };
-    if (type === 'title') {
-      response = await this.updateTitle(uhash, newValue);
-    } else if (type === 'imgurl') {
-      response = await this.updateImgurl(uhash, newValue);
+    if (body.type === 'title') {
+      response = await this.updateTitle(body.uhash, body.value);
+    } else if (body.type === 'imgurl') {
+      response = await this.updateImgurl(body, file);
     } else {
       response.error = 'Input error - undefined update type for section';
     }
@@ -126,6 +136,7 @@ class SectionsModel {
 }
 
 class OffersModel {
+  IMG_URL_PREFIX: any;
   constructor(public tableName: string = 'offers') {}
 
   async createOffer(
@@ -142,6 +153,7 @@ class OffersModel {
     };
     try {
       const azureResponse = await saveImageBatch(images);
+      console.log(azureResponse);
       const parsedImgURL = `{${azureResponse}}`;
       const query = `INSERT INTO ${this.tableName} (
         title, short_description, long_description, price, imgurl, uhash, section_hash)
@@ -163,7 +175,7 @@ class OffersModel {
     try {
       const query = `SELECT * FROM ${this.tableName} WHERE section_hash = '${section_hash}'`;
       const res = await client.query(query);
-      response.rows = res.rows;
+      response.rows = parseImgURL(res.rows);
     } catch (err: any) {
       if ('stack' in err) {
         response.error = err.stack;
@@ -184,7 +196,7 @@ class OffersModel {
     try {
       const query = `SELECT * FROM ${this.tableName} WHERE uhash = '${offer_hash}'`;
       const res = await client.query(query);
-      response.rows = res.rows;
+      response.rows = parseImgURL(res.rows, true);
     } catch (err: any) {
       if ('stack' in err) {
         response.error = err.stack;
@@ -215,7 +227,7 @@ class OffersModel {
     return response;
   }
 
-  async update(body: any) {
+  async updateOffer(body: any) {
     const response: IParsedResponse = {
       rows: [],
       error: '',
@@ -233,6 +245,63 @@ class OffersModel {
       }
     } catch (err: any) {
       response.error = err.stack;
+    }
+
+    return response;
+  }
+
+  async updateImages(body: any, images?: any[]) {
+    const response: IParsedResponse = {
+      rows: [],
+      error: '',
+    };
+    try {
+      let imageNames: string[] = [];
+      if (images) {
+        //If images then carry out uploading operation
+        imageNames = await saveImageBatch(images);
+        imageNames.push(...body.value); // Add previous names to the list too
+      } else {
+        // This will delete nameToDelete from pictures in model and update model's pictures with updateWith
+        const deleteHandle = await deleteSingleImage(
+          deparseImgURL(body.nameToDelete)[0]
+        );
+        if (deleteHandle) {
+          imageNames = deparseImgURL(body.updateWith); // images not given implies there's no need to upload, names have already been provided
+        }
+      }
+      const query = `UPDATE ${this.tableName} SET 
+      imgurl='{${imageNames}}'
+      WHERE uhash = '${body.uhash}' RETURNING *`;
+      const res = await client.query(query);
+      if (res) {
+        response.rows = res.rows;
+      }
+    } catch (err: any) {
+      response.error = err.stack;
+    }
+
+    return response;
+  }
+
+  async update(body: any, type: string, images?: any) {
+    console.log(body);
+    let response: IParsedResponse = {
+      rows: [],
+      error: '',
+    };
+    if (type === 'text') {
+      response = await this.updateOffer(body);
+    } else if (type === 'imgurl') {
+      if (images.length) {
+        // Update image names and upload images
+        response = await this.updateImages(body, images);
+      } else {
+        // simply update image names
+        response = await this.updateImages(body);
+      }
+    } else {
+      response.error = 'Input error - undefined update type for offer';
     }
 
     return response;

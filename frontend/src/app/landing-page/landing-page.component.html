@@ -3,7 +3,6 @@
     <div class="container landing-box-cont">
         <div *ngIf="services" class="row gy-2 gx-md-2 align-items-center justify-content-center">
             <div *ngFor="let offer of services | async" class="col col-11 col-sm-6 col-md-4">
-                <p>{{ offer.uhash }}</p>
                 <art-landing-box [title]="offer.title" [imgUrl]="offer.imgurl" [uhash]="offer.uhash"></art-landing-box>
             </div>
         </div>

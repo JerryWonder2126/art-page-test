@@ -1,0 +1,20 @@
+.img-list {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    & img {
+        width: 200px;
+        height: 200px;
+        border: 2px solid white;
+        overflow-wrap: anywhere;
+        margin: 0 0.5em;
+    }
+
+    &.single {
+        & img {
+            width: 100%;
+            height: unset;
+        }
+    }
+}

@@ -14,6 +14,8 @@
         align-items: center;
 
         & button {
+            width: 30px;
+            height: 30px;
             &:hover {
                 font-weight: 700;
                 transform: scale(1.2);
@@ -22,8 +24,16 @@
         }
     }
 
-    & tbody tr:hover {
-        cursor: pointer;
+    & tbody{
+        .thumbnail {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        tr:hover{
+            cursor: pointer;
+        }
     }
 
     & td button {

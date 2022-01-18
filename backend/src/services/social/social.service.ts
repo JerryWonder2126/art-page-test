@@ -1,5 +1,5 @@
 import {ISocialInterface} from './social.interface';
-import got from 'got';
+// import got from 'got';
 
 export function whatsapp(form: any) {
   const response: ISocialInterface = {ok: false};
@@ -32,21 +32,20 @@ export async function telegram(form: any) {
       parse_mode: 'html',
     };
     const url = `https://api.telegram.org/bot${token}/sendMessage`;
+    const postResponse = await handleRequest(url, data);
     response.ok = true;
-    response.message = url;
-    //   this.http.post(url, data).subscribe(
-    //     obj => {
-    //       console.log(obj);
-    //       //Show success alert
-    //       form.reset();
-    //     },
-    //     err => {
-    //       //Show error alert
-    //       console.log('error: ', err);
-    //     }
-    //   );
+    // response.message = postResponse;
   } catch (err: any) {
     response.error = JSON.stringify(err);
   }
   return response;
+}
+
+async function handleRequest(url: string, body: any) {
+  try {
+    // const telegramResponse = await got.post(url, {json: body});
+    // return telegramResponse.body;
+  } catch (error: any) {
+    throw new Error(error.response.body);
+  }
 }

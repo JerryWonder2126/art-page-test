@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MainDataInterface, OfferInterface, SectionInnerItemInterface, SectionItemInterface } from '../extra-packs/interfaces/general-interfaces';
+import { LoaderService } from '../services/loader/loader.service';
 import { OffersService } from '../services/offers.service';
 
 @Component({
@@ -19,15 +20,16 @@ export class OrderPageComponent implements OnInit, OnChanges {
   relatedOffers!: any;
   fd: FormData = new FormData();
   services!: Observable<SectionItemInterface[]>;
+  btnClick = false; // To control autofocus when order button gets clicked on page
 
   constructor(private offerService: OffersService, private route: ActivatedRoute) {
     this.route.queryParams.subscribe(params => {
       this.offer_hash = params.offer;
+      this.getOffer();
     });
   }
 
   ngOnInit(): void {
-    this.getOffer();
     this.relatedOffers = this.offerService.getCurrentOffers();
     this.services = this.offerService.services;
   }
@@ -64,6 +66,10 @@ export class OrderPageComponent implements OnInit, OnChanges {
       this.fd.append('image', (new ImageSnippet(event.target.result, file)).file);
     });
     
+  }
+
+  resetFocus() {
+    this.btnClick = true;
   }
 }
 

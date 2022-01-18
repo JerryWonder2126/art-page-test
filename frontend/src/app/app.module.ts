@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,6 +22,8 @@ import { MainPageComponent } from './admin/main-page/main-page.component';
 import { ManageSectionsComponent } from './admin/forms/sections/manage-sections.component';
 import { SectionModalComponent } from './admin/modals/section/section-modal.component';
 import { OfferModalComponent } from './admin/modals/offer/offer-modal.component';
+import { NetworkInterceptor } from './interceptor/network.interceptor';
+import { ImageListComponent } from './admin/image-list/image-list.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { OfferModalComponent } from './admin/modals/offer/offer-modal.component'
     MainPageComponent,
     ManageSectionsComponent,
     SectionModalComponent,
-    OfferModalComponent
+    OfferModalComponent,
+    ImageListComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,13 @@ import { OfferModalComponent } from './admin/modals/offer/offer-modal.component'
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: NetworkInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

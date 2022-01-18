@@ -16,6 +16,7 @@ export class ManageOffersComponent implements OnInit {
   @Input() section_hash!: string;
   @Output() formActionComplete: EventEmitter<any> = new EventEmitter<any>();
   services!: Observable<SectionItemInterface[]>;
+  imageNames: string[] = [];
 
   keys: string[] = ['title', 'short_description', 'long_description', 'price', 'section_hash'];
 
@@ -32,11 +33,12 @@ export class ManageOffersComponent implements OnInit {
         title: '',
         short_description: '',
         long_description: '',
-        images: [],
+        imgurl: [],
         price: 0,
         section_hash: this.section_hash || ''
       };
     }
+    this.imageNames = this.offer.imgurl;
   }
 
   processForm(form: NgForm) {
@@ -59,8 +61,8 @@ export class ManageOffersComponent implements OnInit {
   }
 
   updateOffer() {
-    this.adminService.updateOffer(this.offer).subscribe(resp => {
-      console.group(resp);
+    this.fd.set('data', JSON.stringify(this.offer));
+    this.adminService.updateOffer(this.fd, this.offer.section_hash).subscribe(resp => {
       this.formActionComplete.emit();
     });
   }
@@ -70,6 +72,30 @@ export class ManageOffersComponent implements OnInit {
     for(let x=0; x<files.length; x++){
       this.fd.set(`image_${x}`, files[x]);
     }
+  }
+
+  updateImage(form: NgForm) {
+    if(this.offer.uhash) {
+      const data = {
+        uhash: this.offer.uhash,
+        value: this.offer.imgurl
+      };
+      this.fd.set('data', JSON.stringify(data));
+      this.adminService.updateOfferImages(this.fd, this.offer.section_hash).subscribe(resp => {
+        form.reset();
+        this.formActionComplete.emit();
+      });
+    }
+  }
+
+  deleteImage(url: FormData) {
+    const data = JSON.parse(url.get('data') as string);
+    data.uhash = this.offer.uhash;
+    url.set('data', JSON.stringify(data));
+    this.adminService.updateOfferImages(url, this.offer.section_hash).subscribe(resp => {
+      this.offer.imgurl = data.updateWith;
+      console.log(url, 'is deleted');
+    });
   }
 
 }

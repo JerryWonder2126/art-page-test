@@ -1,10 +1,6 @@
 {
   "extends": "./node_modules/gts/",
   "rules": {
-    // "no-inner-declarations": "off",
-    // "lodash/prefer-lodash-method": "off",
-    // "lodash/prefer-lodash-typecheck": "off",
-    // "lodash/preferred-alias": [2, { "ignoreMethods": ["extend"] }],
     "prettier/prettier": [
       "error",
       {

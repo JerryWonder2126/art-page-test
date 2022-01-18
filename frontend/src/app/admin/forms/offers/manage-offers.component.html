@@ -1,7 +1,8 @@
-<form #offersForm="ngForm" (ngSubmit)="processForm(offersForm)">
+<h5 *ngIf="update">Update Offer</h5>
+<form #offersForm="ngForm" class="text-light" (ngSubmit)="processForm(offersForm)">
     <div class="mb-2">
         <label for="section_hash">Section</label>
-        <select name="section_hash" id="section_hash" class="form-control" required [(ngModel)]="offer.section_hash" [disabled]="update">
+        <select name="section_hash" id="section_hash" class="form-control" required [(ngModel)]="offer.section_hash" [attr.disabled]="update">
             <!-- <option value="">-- select --</option> -->
             <option [value]="serv.uhash" *ngFor="let serv of services | async">{{ serv.title }}</option>
         </select>
@@ -27,6 +28,23 @@
         <input ngModel #imageField (change)="processImage(imageField)" type="file" accept="image/*" name="images" id="images" class="form-control" required multiple>
     </div>
     <div class="mb-2">
-        <input type="submit" [value]="btnText" id="submit" class="form-control btn btn-md" [ngClass]="{'btn-light': update, 'btn-dark': !update}">
+        <input type="submit" [value]="btnText" id="submit" class="form-control btn btn-md" [ngClass]="{'btn-light': update, 'btn-dark': !update, 'disabled': !offersForm.valid}">
     </div>
 </form>
+
+<div *ngIf="update">
+    <h5>Image Section</h5>
+
+    <art-image-list [imageURLs]="offer.imgurl" (DeleteImage)="deleteImage($event)"></art-image-list>
+
+    <form #imageForm="ngForm" (ngSubmit)="updateImage(imageForm)">
+        <div class="mb-2">
+            <label for="images-list">images</label>
+            <input ngModel #imageField (change)="processImage(imageField)" type="file" accept="image/*" name="images" id="images-list" class="form-control" required multiple>
+        </div>
+        <div class="mb-2">
+            <input type="submit" value="update" id="update" class="form-control btn-light btn btn-md" [ngClass]="{'disabled': !imageNames.length || imageForm.form.pristine}">
+        </div>
+    </form>
+
+</div>

@@ -1,9 +1,16 @@
 // eslint-disable-next-line node/no-extraneous-import
 import {BlobServiceClient, ContainerClient} from '@azure/storage-blob';
 import {v1 as uuidv1} from 'uuid';
+import {deparseImgURL} from '../upload/upload-image.service';
 import {IAzureResponse} from './azure.interface';
 
 export class AzureService {
+  private IMG_URL_PREFIX = `https://${this.storageAccountName}.blob.core.windows.net/${this.containerName}/`;
+
+  get imgUrlPrefix() {
+    return this.IMG_URL_PREFIX;
+  }
+
   private AZURE_STORAGE_CONNECTION_STRING: string = process.env
     .AZURE_STORAGE_CONNECTION_STRING as string;
 
@@ -68,7 +75,6 @@ export class AzureService {
 
   async uploadToBlob(file: any, containerClient?: ContainerClient) {
     const response: IAzureResponse = {name: uuidv1()};
-    const imgurl = `https://${this.storageAccountName}.blob.core.windows.net/${this.containerName}/`;
     try {
       if (!containerClient) {
         containerClient = await this.prepareForConnection();
@@ -82,11 +88,37 @@ export class AzureService {
         file.data,
         file.size
       );
-      response.name = imgurl + fileName;
+      response.name = fileName;
       response.requestId = uploadBlobResponse.requestId;
     } catch (err: any) {
       response.error = true;
       throw new Error(JSON.stringify(err));
+    }
+    return response;
+  }
+
+  async deleteImageFromBlob(
+    fileName: string,
+    containerClient?: ContainerClient
+  ) {
+    const response: IAzureResponse = {name: uuidv1()};
+    try {
+      if (!containerClient) {
+        containerClient = await this.prepareForConnection();
+      }
+      // Get a block blob client
+      const blockBlobClient = await containerClient.getBlockBlobClient(
+        fileName
+      );
+      const rep = await blockBlobClient.delete();
+      response.name = fileName;
+      // response.requestId = uploadBlobResponse.requestId;
+    } catch (err: any) {
+      console.log(err.RestError);
+      if (err.RestError !== 'The specified blob does not exist.') {
+        response.error = true;
+        throw new Error(JSON.stringify(err));
+      }
     }
     return response;
   }

@@ -42,6 +42,10 @@ export class OffersService {
     return this.backendService.updateSectionTitle(body)
   }
 
+  updateSectionImgURL(body: any) {
+    return this.backendService.updateSectionImgURL(body)
+  }
+
   getOffersForService(section_hash: string) {
     this.backendService.getOffersForService(section_hash);
   }
@@ -62,8 +66,16 @@ export class OffersService {
     }));;
   }
 
-  updateOffer(offer: OfferInterface) {
-    return this.backendService.updateOffer(offer)
+  updateOffer(fd: FormData, section_hash: string) {
+    return this.backendService.updateOfferText(fd, section_hash);
+  }
+
+  updateOfferImage(fd: FormData, section_hash: string) {
+    return this.backendService.updateOfferImages(fd, section_hash);
+  }
+
+  updateOfferImages(form: FormData, section_hash: string) {
+    return this.backendService.updateOfferImages(form, section_hash);
   }
 
   deleteOffer(uhash: string, section_hash: string) {

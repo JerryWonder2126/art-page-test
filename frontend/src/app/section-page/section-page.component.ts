@@ -18,7 +18,9 @@ export class SectionPageComponent implements OnInit {
   offersReady!: boolean;
   services!: Observable<SectionItemInterface[]>;
 
-  constructor(private offersService: OffersService, private route: ActivatedRoute) {}
+  constructor(private offersService: OffersService, private route: ActivatedRoute) {
+    this.loadVars();
+  }
   
   loadVars() {
     this.route.queryParams.subscribe(params => {
@@ -31,7 +33,6 @@ export class SectionPageComponent implements OnInit {
   ngOnInit(): void {
     this.offers = this.offersService.offers;
     this.services = this.offersService.services;
-    this.loadVars();
   }
 
 }

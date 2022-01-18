@@ -7,23 +7,25 @@
         <art-section-modal (deleteButtonClicked)="deleteSection(activeService.uhash)" [service]="activeService"></art-section-modal>
         <div class="col-12 head-section">
             <h2>Sections</h2>
-            <button (click)="toggleSectionAddFormVisiblity()">+</button>
+            <button (click)="toggleSectionAddFormVisiblity()">{{!sectionsAddFormVisible ? '+' : '-' }}</button>
         </div>
         <div class="col">
             <art-manage-sections *ngIf="sectionsAddFormVisible" (formActionComplete)="toggleSectionAddFormVisiblity()"></art-manage-sections>
             <table *ngIf="!sectionsAddFormVisible" class="table table-dark table-hover table-strped">
                 <thead>
-                    <tr>
-                        <th>id</th>
+                    <tr class="text-uppercase">
+                        <th></th>
                         <th>title</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let service of services | async">
-                        <td>{{ service.id }}</td>
-                        <td>{{ service.title }}</td>
-                        <td>
+                        <td  class="align-middle">
+                            <img [src]="service.imgurl" class="thumbnail">
+                        </td>
+                        <td class="align-middle">{{ service.title }}</td>
+                        <td class="align-middle">
                             <button type="button" class="btn btn-danger" (click)="setActiveService(service)" 
                             data-bs-toggle="modal" data-bs-target="#sectionDeleteModal">delete</button>
                             <button type="button" class="btn btn-secondary" (click)="setActiveService(service)" 
@@ -44,23 +46,25 @@
         </div>
         <div class="col-12 head-section">
             <h2> {{ activeService.title }}'s Offers</h2>
-            <button (click)="toggleOffersAddFormVisibility()">+</button>
+            <button (click)="toggleOffersAddFormVisibility()">{{!offersAddFormVisible ? '+' : '-' }}</button>
         </div>
         <div class="col">
             <art-manage-offers [section_hash]="activeService.uhash" (formActionComplete)="toggleOffersAddFormVisibility()" *ngIf="offersAddFormVisible"></art-manage-offers>
             <table *ngIf="!offersAddFormVisible" class="table table-dark table-hover">
                 <thead>
-                    <tr>
-                        <th>id</th>
+                    <tr class="text-uppercase">
+                        <th></th>
                         <th>title</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr  *ngFor="let offer of offers | async">
-                        <td>{{ offer.id }}</td>
-                        <td (click)="toOfferPage(offer)">{{ offer.title }}</td>
-                        <td>
+                        <td  class="align-middle">
+                            <img [src]="offer.imgurl[0]" class="thumbnail">
+                        </td>
+                        <td class="align-middle" (click)="toOfferPage(offer)">{{ offer.title }}</td>
+                        <td class="align-middle">
                             <button type="button" class="btn btn-danger" (click)="setActiveOffer(offer)" 
                             data-bs-toggle="modal" data-bs-target="#offerDeleteModal">delete</button>
                             <button type="button" class="btn btn-secondary" (click)="setActiveOffer(offer)" 

@@ -5,22 +5,22 @@
             <div class="col-12 col-md-5">
                 <h2 class="main-heading my-2">Order your {{ offer.title }}</h2>
                 <!-- <img [src]="offer.imgURL" class="img-fluid mb-2 item-img" [alt]="offer.title"> -->
-                <div *ngIf="offer.images" class="item-img-box">
+                <div *ngIf="offer.imgurl" class="item-img-box">
                     <!-- <img [src]="imgURL" class="item-img" [alt]="title"> -->
-                    <div id="carousel" class="carousel" [ngClass]="{'slide': offer.images.length > 1}" data-bs-ride="carousel">
+                    <div id="carousel" class="carousel" [ngClass]="{'slide': offer.imgurl.length > 1}" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img [src]="offer.images[0]" alt="" class="d-block item-img">
+                                <img [src]="offer.imgurl[0]" alt="" class="d-block item-img">
                             </div>
-                            <div *ngFor="let url of offer.images[1]" class="carousel-item">
+                            <div *ngFor="let url of offer.imgurl[1]" class="carousel-item">
                                 <img [src]="url" alt="" class="d-block item-img">
                             </div>
                         </div>
-                        <button *ngIf="offer.images.length > 1" class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                        <button *ngIf="offer.imgurl.length > 1" class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button *ngIf="offer.images.length > 1" class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                        <button *ngIf="offer.imgurl.length > 1" class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>

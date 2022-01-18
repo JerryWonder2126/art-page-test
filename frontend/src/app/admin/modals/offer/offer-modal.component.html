@@ -12,8 +12,8 @@
             <h2>{{ offer.title }}</h2>
             <p>Short Description: {{ offer.short_description }}</p>
             <p>Long Description: {{ offer.long_description }}</p>
-            <div class="d-flex">
-                <img *ngFor="let image of offer.images" [src]="image" [alt]="offer.title" class="img-fluid">
+            <div class="img-list">
+                <img *ngFor="let image of offer.imgurl" [src]="image" [alt]="offer.title" class="">
             </div>
         </div>
         <div class="modal-footer">

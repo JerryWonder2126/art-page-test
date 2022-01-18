@@ -25,10 +25,11 @@ router.post('/sections', async (req: any, res: any) => {
 });
 
 router.put('/sections/', async (req: any, res: any) => {
+  const image = req['files'] ? req['files'].image : undefined;
+  console.log(req.body);
   const result = (await SectionModel.update(
-    req.body.uhash,
-    req.body.newValue,
-    req.query.type
+    req.body,
+    image
   )) as IParsedResponse;
   if (result.error) {
     res.statusCode = 404;
@@ -59,32 +60,36 @@ router.post('/offers/', async (req: any, res: any) => {
     rows: [],
     error: '',
   };
-  try {
-    const body = JSON.parse(req.body.data);
-    const images: any[] = [];
-    Object.keys(req['files']).forEach((key: any) =>
-      images.push(req.files[key])
-    );
-    result = await OfferModel.createOffer(
-      body.title,
-      body.short_description,
-      body.long_description,
-      body.price,
-      images,
-      body.section_hash
-    );
-    if (result.error) {
-      res.statusCode = 404;
-    }
-  } catch (err) {
-    res.statusCode = 400;
-    result.error += `\n${err}`;
+  const body = JSON.parse(req.body.data);
+  const images: any[] = [];
+  Object.keys(req['files']).forEach((key: any) => images.push(req.files[key]));
+  result = await OfferModel.createOffer(
+    body.title,
+    body.short_description,
+    body.long_description,
+    body.price,
+    images,
+    body.section_hash
+  );
+  if (result.error) {
+    res.statusCode = 404;
   }
   res.send(result);
 });
 
 router.put('/offers/', async (req: any, res: any) => {
-  const result = await OfferModel.update(req.body.body);
+  const images: any[] = [];
+  if (req['files']) {
+    Object.keys(req['files']).forEach((key: any) =>
+      images.push(req.files[key])
+    );
+  }
+  const body = JSON.parse(req.body.data);
+  const result = (await OfferModel.update(
+    body,
+    req.query.type,
+    images
+  )) as IParsedResponse;
   if (result.error) {
     res.statusCode = 404;
   }
@@ -99,21 +104,7 @@ router.delete('/offers/', async (req: any, res: any) => {
   res.send(result);
 });
 
-// router.post('/social/', async (req: any, res: any) => {
-//   const result: IParsedResponse = {
-//     rows: [],
-//     error: '',
-//   };
-//   const response: ISocialInterface = {ok: false};
-//   const form = JSON.parse(req.body.data);
-//   const type: string = req.query.type;
-//   console.log(form.message);
-//   console.log(type);
-
-//   res.send(result);
-// });
-
-router.post('/social/', async (req: any, res: any, next: any) => {
+router.post('/social/', async (req: any, res: any) => {
   const result: IParsedResponse = {
     rows: [],
     error: '',

@@ -40,8 +40,12 @@ export class AdminService {
     return this.offersService.deleteOffer(uhash, section_hash);
   }
 
-  updateOffer(offer: OfferInterface) {
-    return this.offersService.updateOffer(offer)
+  updateOffer(form: FormData, section_hash: string) {
+    return this.offersService.updateOffer(form, section_hash);
+  }
+
+  updateOfferImages(form: FormData, section_hash: string) {
+    return this.offersService.updateOfferImages(form, section_hash);
   }
 
   addSection(form: FormData): Observable<any> {
@@ -50,6 +54,10 @@ export class AdminService {
 
   updateSectionTitle(body: any) {
     return this.offersService.updateSectionTitle(body)
+  }
+
+  updateSectionImgURL(body: any) {
+    return this.offersService.updateSectionImgURL(body)
   }
 
   deleteSection(uhash: string): Observable<any> {

@@ -43,7 +43,9 @@ export class ContactComponent implements OnInit {
   sendToTelegram(form: NgForm) {
     const valid = this.processForm(form);
     if (valid) {
-      this.socialService.sendToTelegram(this.fd);
+      this.socialService.sendToTelegram(this.fd).subscribe(res => {
+        console.log(res);
+      });
     }
   }
 

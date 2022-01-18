@@ -19,8 +19,9 @@ export class ManageSectionsComponent implements OnInit {
   @Input() service!: SectionItemInterface;
   @Input() update!: boolean;
   btnText!: string;
+  imageName = '';
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
     this.btnText = this.update ? 'update' : 'add';
@@ -49,7 +50,6 @@ export class ManageSectionsComponent implements OnInit {
     this.fd.set('title', form.value['title']);
     const upload$ = this.adminService.addSection(this.fd);
     upload$.subscribe(response => {
-      console.log(response);
       form.reset();
       this.fd.forEach((value, key) => {
         this.fd.delete(key);
@@ -59,10 +59,10 @@ export class ManageSectionsComponent implements OnInit {
   }
 
   updateSection(form: NgForm) {
-    const updateObj = {uhash: this.service.uhash, newValue: ''}
+    const updateObj = {uhash: this.service.uhash, value: '', type: 'title'}
     this.keys.forEach(key => {
       if (form.form.controls[key].touched) {
-        updateObj.newValue = form.form.controls[key].value;
+        updateObj.value = form.form.controls[key].value;
       }
     });
     console.log(updateObj);
@@ -72,7 +72,25 @@ export class ManageSectionsComponent implements OnInit {
   }
 
   processImage(imageField: any) {
-    this.fd.append('image', imageField.files[0]);
+    this.fd.set('image', imageField.files[0]);
+    this.imageName = imageField.files[0].name;
+  }
+
+  updateImage(form: NgForm) {
+    this.fd.set('uhash', this.service.uhash);
+    this.fd.set('value', this.service.imgurl);
+    this.fd.set('type', 'imgurl');
+    this.adminService.updateSectionImgURL(this.fd).subscribe(resp => {
+      form.reset();
+      this.fd.forEach((value, key) => {
+        this.fd.delete(key);
+      });
+      this.formActionComplete.emit();
+    });
+  }
+
+  toList(val: any){
+    return [val];
   }
 
 }

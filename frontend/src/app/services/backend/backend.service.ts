@@ -77,12 +77,26 @@ export class BackendService {
     }));
   }
 
-  updateOffer(offer: OfferInterface) {
-    return this.http.put<BackendResponseInterface>(this.OFFERS_URL, {body: offer}).pipe(map(resp => {
-      this.getOffersForService(offer.section_hash);
+  updateOfferText(fd: FormData, section_hash: string) {
+    return this.http.put<BackendResponseInterface>(`${this.OFFERS_URL}?type=text`, fd).pipe(map(resp => {
+      this.getOffersForService(section_hash);
       return resp.rows;
     }));
   }
+
+  updateOfferImages(fd: FormData, section_hash: string) {
+    return this.http.put<BackendResponseInterface>(`${this.OFFERS_URL}?type=imgurl`, fd).pipe(map(resp => {
+      this.getOffersForService(section_hash);
+      return resp.rows;
+    }));
+  }
+
+  // updateOfferImages(form: FormData, section_hash: string) {
+  //   return this.http.put<BackendResponseInterface>(this.OFFERS_URL+'kl', form).pipe(map(resp => {
+  //     this.getOffersForService(section_hash);
+  //     return resp.rows;
+  //   }));;
+  // }
 
   deleteOffer(uhash: string, section_hash: string) {
     return this.http.delete<BackendResponseInterface>(`${this.OFFERS_URL}?offer_hash=${uhash}`).pipe(map(res => {

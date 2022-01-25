@@ -11,8 +11,8 @@ import { BackendResponseInterface, OfferInterface, SectionItemInterface } from '
 export class BackendService {
 
   private BASE_URL = environment.baseURL;
-  private SECTIONS_URL = `${this.BASE_URL}/sections/`;
-  private OFFERS_URL = `${this.BASE_URL}/offers/`;
+  private SECTIONS_URL = `${this.BASE_URL}sections/`;
+  private OFFERS_URL = `${this.BASE_URL}offers/`;
 
   private _sections: BehaviorSubject<SectionItemInterface[]> = new BehaviorSubject<SectionItemInterface[]>([]);
 
@@ -114,7 +114,7 @@ export class BackendService {
   }
 
   getConnectLink(type: string, form: FormData) {
-    return this.http.post<BackendResponseInterface>(`${this.BASE_URL}/social/?type=${type}`, form).pipe(map(response => response.rows));
+    return this.http.post<BackendResponseInterface>(`${this.BASE_URL}social/?type=${type}`, form).pipe(map(response => response.rows));
   }
  
 }

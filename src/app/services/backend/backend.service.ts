@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { BackendResponseInterface, OfferInterface, SectionItemInterface } from 'src/app/extra-packs/interfaces/general-interfaces';
 
 @Injectable({
@@ -9,7 +10,7 @@ import { BackendResponseInterface, OfferInterface, SectionItemInterface } from '
 })
 export class BackendService {
 
-  private BASE_URL = 'http://localhost:12080/resources';
+  private BASE_URL = environment.baseURL;
   private SECTIONS_URL = `${this.BASE_URL}/sections/`;
   private OFFERS_URL = `${this.BASE_URL}/offers/`;
 

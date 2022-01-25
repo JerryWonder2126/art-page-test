@@ -12,7 +12,7 @@
                             <div class="carousel-item active">
                                 <img [src]="offer.imgurl[0]" alt="" class="d-block item-img">
                             </div>
-                            <div *ngFor="let url of offer.imgurl[1]" class="carousel-item">
+                            <div *ngFor="let url of offer.imgurl.slice(1, offer.imgurl.length)" class="carousel-item">
                                 <img [src]="url" alt="" class="d-block item-img">
                             </div>
                         </div>

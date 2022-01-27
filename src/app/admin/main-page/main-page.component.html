@@ -1,7 +1,7 @@
 
 <div class="container">
     <header>
-        <h1><a [routerLink]="['home']">ArtManage</a></h1>
+        <h1><a class="navbar-brand" [routerLink]="['/home']">SinaArtz</a></h1>
     </header>
     <div *ngIf="!offersVisibility" class="row" [ngClass]="{'fade': offersVisibility}">
         <art-section-modal (deleteButtonClicked)="deleteSection(activeService.uhash)" [service]="activeService"></art-section-modal>

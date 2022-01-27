@@ -105,11 +105,19 @@ export class BackendService {
       return res;
     }));;
   }
+  
+  parseOffers(offers: any[]) {
+    //Simply to convert price to a number and remove symbol added to it by postgres
+    return offers.map(value => {
+      value.price = Number(value.price.substring(1));
+      return value as OfferInterface;
+    });
+  }
 
   getOffersForService(service_hash:string) {
     const getOffer$ = this.http.get<BackendResponseInterface>(`${this.OFFERS_URL}?section=${service_hash}`);
     getOffer$.subscribe(response => {
-      this._offers.next(response.rows.reverse() as OfferInterface[]);
+      this._offers.next(this.parseOffers(response.rows.reverse()));
     });
   }
 

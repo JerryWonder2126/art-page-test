@@ -46,7 +46,7 @@ export class ManageOffersComponent implements OnInit {
       if(!this.update) {
         this.saveOffer(form);
       }else {
-        this.updateOffer();
+        this.updateOffer(form);
       }
     }
   }
@@ -59,9 +59,10 @@ export class ManageOffersComponent implements OnInit {
     });
   }
 
-  updateOffer() {
+  updateOffer(form: NgForm) {
     this.fd.set('data', JSON.stringify(this.offer));
     this.adminService.updateOffer(this.fd, this.offer.section_hash).subscribe(resp => {
+      form.reset();
       this.formActionComplete.emit();
     });
   }

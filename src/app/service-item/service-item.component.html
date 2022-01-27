@@ -16,7 +16,7 @@
         
     <div class="item-note d-flex align-items-center">
         <div>
-            <p><span class="pre-text">Selling for</span> <br> <span class="item-price">{{ service.price }}</span> <br> {{ service.short_description }}</p>  
+            <p><span class="pre-text">Selling for</span> <br> <span class="item-price">{{ service.price | currency:'NGN':'₦' }}</span> <br> {{ service.short_description }}</p>  
             <button (click)="orderButtonClicked()" class="btn btn-md btn-outline-light border-2 order-btn">Place Order</button>   
         </div> 
     </div>

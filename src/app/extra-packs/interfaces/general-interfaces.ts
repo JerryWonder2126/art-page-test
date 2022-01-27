@@ -29,7 +29,7 @@ export interface OfferInterface {
     short_description: string,
     long_description: string,
     imgurl: string[],
-    price: Number,
+    price: number,
     uhash?: string,
     section_hash: string
 }

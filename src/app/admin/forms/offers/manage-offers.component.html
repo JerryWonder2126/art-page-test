@@ -13,15 +13,16 @@
     </div>
     <div class="mb-2">
         <label for="short_description">short description</label>
-        <input type="text" name="short_description" id="short_description" class="form-control" [(ngModel)]="offer.short_description" required>
+        <input type="text" maxlength="80" name="short_description" id="short_description" class="form-control" [(ngModel)]="offer.short_description" required>
     </div>
     <div class="mb-2">
         <label for="long_description">long description</label>
-        <textarea maxlength="200" name="long_description" id="long_description" class="form-control" [(ngModel)]="offer.long_description" required></textarea>
+        <textarea maxlength="1000" name="long_description" id="long_description" class="form-control" [(ngModel)]="offer.long_description" required></textarea>
     </div>
     <div class="mb-2">
         <label for="price">price</label>
-        <input type="number" name="price" id="price" class="form-control" [valueAsNumber]="offer.price" ngModel required>
+        <input type="number" name="price" id="price" step="0.01" class="form-control" [(ngModel)]="offer.price" ngModel required>
+        <div id="priceHelp" class="form-text text-warning">Please note that maximum decimal place is 2</div>
     </div>
     <div *ngIf="!update" class="mb-2">
         <label for="images">images</label>

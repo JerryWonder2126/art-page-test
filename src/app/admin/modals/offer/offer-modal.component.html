@@ -10,6 +10,7 @@
         </div>
         <div *ngIf="offer" class="modal-body">
             <h2>{{ offer.title }}</h2>
+            <p>Short Description: {{ offer.price | currency:'NGN':'₦' }}</p>
             <p>Short Description: {{ offer.short_description }}</p>
             <p>Long Description: {{ offer.long_description }}</p>
             <div class="img-list">

@@ -1,3 +1,4 @@
+{{imageURLs.length}}
 <div *ngIf="imageURLs.length" class="images-list">
     <div *ngFor="let url of imageURLs" class="img-div" [ngClass]="{'single': imageURLs.length === 1}">
         <span type='button' class="delete-icon" (click)="deleteImage(url)" [ngClass]="{'disabled': imageURLs.length === 1}">X</span>

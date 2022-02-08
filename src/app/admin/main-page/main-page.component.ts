@@ -19,6 +19,8 @@ export class MainPageComponent implements OnInit, OnChanges {
   offersVisibility = false;
   activeService!: SectionItemInterface;
   activeOffer!: OfferInterface;
+  editOfferVisible!: boolean;
+  previewOfferVisible!: boolean;
 
   constructor(private adminService: AdminService, private router: Router) { }
 
@@ -110,6 +112,16 @@ export class MainPageComponent implements OnInit, OnChanges {
 
   loadOffers(section_hash: string) {
     this.adminService.getOffersForService(section_hash);
+  }
+
+  editOffer(offer: OfferInterface) {
+    this.setActiveOffer(offer);
+    this.editOfferVisible = true;
+  }
+
+  previewOffer(offer: OfferInterface) {
+    this.setActiveOffer(offer);
+    this.previewOfferVisible = true;
   }
 
 }

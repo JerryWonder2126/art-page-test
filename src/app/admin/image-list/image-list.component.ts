@@ -13,7 +13,9 @@ export class ImageListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.imageURLs = [];
+    if (!this.imageURLs) {
+      this.imageURLs = [];
+    }
   }
 
   deleteImage(imageName: string) {

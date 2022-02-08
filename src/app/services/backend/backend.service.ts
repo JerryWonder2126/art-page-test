@@ -34,6 +34,7 @@ export class BackendService {
     this.http.get<BackendResponseInterface>(this.SECTIONS_URL, {observe: 'body', responseType: 'json'}).subscribe((response) => {
       if(!response.error) {
         this._sections.next(response.rows.reverse());
+        // this._sections.next([]);
       }
     });
   }
@@ -109,7 +110,8 @@ export class BackendService {
   parseOffers(offers: any[]) {
     //Simply to convert price to a number and remove symbol added to it by postgres
     return offers.map(value => {
-      value.price = Number(value.price.substring(1));
+      value.price = value.price.substring(1);
+      value.price = value.price.replaceAll(',', '');
       return value as OfferInterface;
     });
   }
@@ -118,6 +120,7 @@ export class BackendService {
     const getOffer$ = this.http.get<BackendResponseInterface>(`${this.OFFERS_URL}?section=${service_hash}`);
     getOffer$.subscribe(response => {
       this._offers.next(this.parseOffers(response.rows.reverse()));
+      // this._offers.next([]);
     });
   }
 

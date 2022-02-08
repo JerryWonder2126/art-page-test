@@ -5,6 +5,13 @@ export interface SectionItemInterface {
     uhash: string;
 }
 
+export interface ISBody {
+    id: string;
+    title: string;
+    imgurl: string;
+    uhash: string;
+}
+
 export interface SectionInnerItemInterface {
     title: string;
     imgURL: string[];
@@ -24,6 +31,17 @@ export interface BackendResponseInterface {
 }
 
 export interface OfferInterface {
+    id?: string,
+    title: string,
+    short_description: string,
+    long_description: string,
+    imgurl: string[],
+    price: number,
+    uhash?: string,
+    section_hash: string
+}
+
+export interface IOBody {
     id?: string,
     title: string,
     short_description: string,

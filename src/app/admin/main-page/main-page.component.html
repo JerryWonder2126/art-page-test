@@ -39,7 +39,7 @@
             </table>
         </div>
     </div>
-    <div *ngIf="offersVisibility" class="row mt-3 justify-content-center" [ngClass]="{'fade': !offersVisibility}">
+    <div *ngIf="offersVisibility && !editOfferVisible && !previewOfferVisible" class="row mt-3 justify-content-center" [ngClass]="{'fade': !offersVisibility}">
         <art-offer-modal [offer]="activeOffer" (deleteButtonClicked)="deleteOffer(activeOffer.section_hash, activeOffer.uhash)"></art-offer-modal>
         <div class="col-12">
             <button class="btn btn-secondary back-btn" (click)="toggleOffersVisibility()">back</button>
@@ -67,15 +67,35 @@
                         <td class="align-middle">
                             <button type="button" class="btn btn-danger" (click)="setActiveOffer(offer)" 
                             data-bs-toggle="modal" data-bs-target="#offerDeleteModal">delete</button>
-                            <button type="button" class="btn btn-secondary" (click)="setActiveOffer(offer)" 
-                            data-bs-toggle="modal" data-bs-target="#offerEditModal">edit</button>
+                            <button type="button" class="btn btn-secondary" (click)="editOffer(offer)">edit</button>
                             <!-- <button (click)="toggleOffersVisibility(offer.uhash)" class="btn btn-warning">offers</button> -->
-                            <button type="button" class="btn btn-primary" (click)="setActiveOffer(offer)" 
-                            data-bs-toggle="modal" data-bs-target="#offerPreviewModal">preview</button>
+                            <button type="button" class="btn btn-primary" (click)="previewOffer(offer)">preview</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div *ngIf="offersVisibility" class="row mt-3 justify-content-center" [ngClass]="{'fade': !offersVisibility}">
+        <div class="col" *ngIf="editOfferVisible">
+            <div>
+                <button (click)="editOfferVisible=false" class="btn btn-secondary back-btn">back</button>
+            </div>
+            <art-manage-offers [offer]="activeOffer" [update]="true" (formActionComplete)="editOfferVisible=false"></art-manage-offers>
+        </div>
+        <div class="col" *ngIf="previewOfferVisible">
+            <div *ngIf="activeOffer" class="text-light">
+                <div>
+                    <button (click)="previewOfferVisible=false" class="btn btn-secondary back-btn">back</button>
+                </div>
+                <h2>{{ activeOffer.title }}</h2>
+                <p>Price: {{ activeOffer.price | currency:'NGN':'₦' }}</p>
+                <p>Short Description: {{ activeOffer.short_description }}</p>
+                <p>Long Description: {{ activeOffer.long_description }}</p>
+                <div class="img-list">
+                    <img *ngFor="let image of activeOffer.imgurl" [src]="image" [alt]="activeOffer.title" class="preview-img">
+                </div>
+            </div>
         </div>
     </div>
 </div>

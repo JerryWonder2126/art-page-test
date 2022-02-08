@@ -35,7 +35,6 @@
 
 <div *ngIf="update">
     <h5>Image Section</h5>
-
     <art-image-list [imageURLs]="offer.imgurl" (DeleteImage)="deleteImage($event)"></art-image-list>
 
     <form #imageForm="ngForm" (ngSubmit)="updateImage(imageForm)">

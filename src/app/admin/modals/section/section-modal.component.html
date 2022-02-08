@@ -10,8 +10,8 @@
         </div>
         <div *ngIf="service" class="modal-body">
             <h2>{{ service.title }}</h2>
-            <div>
-                <img [src]="service.imgurl" [alt]="service.title" class="img-fluid">
+            <div class="preview-img-box">
+                <img [src]="service.imgurl" [alt]="service.title" class="img-fluid preview-img">
             </div>
         </div>
         <div class="modal-footer">

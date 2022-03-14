@@ -38,7 +38,12 @@ export interface OfferInterface {
     imgurl: string[],
     price: number,
     uhash?: string,
-    section_hash: string
+    section_hash: string,
+    artist?: string,
+    year?: number,
+    dimension?: string,
+    orientation?: string,
+    medium?: string
 }
 
 export interface IOBody {

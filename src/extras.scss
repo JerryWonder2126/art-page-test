@@ -26,7 +26,7 @@ $lg-size: map-get($grid-breakpoints, 'lg');
 }
 
 @mixin sm {
-    @media (min-width: #{$sm-size}) {
+    @media (max-width: #{$sm-size}) {
         @content;
     }
 }

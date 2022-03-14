@@ -1,9 +1,27 @@
 <art-navigation [services]="services"></art-navigation>
 <main>
-    <div class="container landing-box-cont">
-        <div *ngIf="services | async" class="row gy-2 gx-md-2 align-items-center justify-content-center">
+    <div class="container-fluid landing-box-cont">
+        <div *ngIf="services | async" class="row align-items-center justify-content-center mt-2 mb-5 d-flex d-sm-none">
             <div *ngFor="let offer of services | async" class="col col-11 col-sm-6 col-md-4">
                 <art-landing-box [title]="offer.title" [imgUrl]="offer.imgurl" [uhash]="offer.uhash"></art-landing-box>
+            </div>
+        </div>
+        <div class="row d-none d-sm-flex">
+            <div class="col">
+                <div *ngIf="activeSection" class="card main-section">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-end mb-2">
+                            <h5 class="card-title m-0">{{ activeSection.title }}</h5>
+                            <button type="button" (click)="openSection()" class="btn btn-light py-2 px-3 call-to-action-btn">View Category</button>
+                        </div>
+                      <img [src]="activeSection.imgurl" class="card-img" [alt]="activeSection.title">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-3 other-sections">
+                <div *ngFor="let offer of services | async">
+                    <art-landing-box [title]="offer.title" [imgUrl]="offer.imgurl" [uhash]="offer.uhash"></art-landing-box>
+                </div>
             </div>
         </div>
         <!-- <div *ngIf="services | async" class="row">

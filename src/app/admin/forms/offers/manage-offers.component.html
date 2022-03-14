@@ -24,6 +24,26 @@
         <input type="number" name="price" id="price" step="0.01" class="form-control" [(ngModel)]="offer.price" ngModel required>
         <div id="priceHelp" class="form-text text-warning">Please note that maximum decimal place is 2</div>
     </div>
+    <div class="mb-2">
+        <label for="artist">Artist</label>
+        <input type="text" name="artist" id="artist" class="form-control" [(ngModel)]="offer.artist" required>
+    </div>
+    <div class="mb-2">
+        <label for="medium">Medium</label>
+        <input type="text" name="medium" id="medium" class="form-control" [(ngModel)]="offer.medium" required>
+    </div>
+    <div class="mb-2">
+        <label for="dimension">Dimension in inches</label>
+        <input type="text" name="dimension" id="dimension" class="form-control" [(ngModel)]="offer.dimension" required>
+    </div>
+    <div class="mb-2">
+        <label for="orientation">Orientation</label>
+        <input type="text" name="orientation" id="orientation" class="form-control" [(ngModel)]="offer.orientation" required>
+    </div>
+    <div class="mb-2">
+        <label for="year">Year</label>
+        <input type="number" name="year" id="year" class="form-control" [(ngModel)]="offer.year" required>
+    </div>
     <div *ngIf="!update" class="mb-2">
         <label for="images">images</label>
         <input ngModel #imageField (change)="processImage(imageField)" type="file" accept="image/*" name="images" id="images" class="form-control" required multiple>

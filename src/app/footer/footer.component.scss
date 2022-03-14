@@ -1,9 +1,12 @@
 @import "../../extras.scss";
 
 .footer {
-    display: flex !important;
     justify-content: center;
     align-items: center;
     box-shadow: 0px -4px 4px darken($background-color, 5%);
     color: $font-light;
+
+    @include lg {
+        display: flex !important
+    }
 }

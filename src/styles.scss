@@ -25,13 +25,13 @@ body {
     background-color: unset !important;
 
     & .card-header {
-        background-color: darken($background-color, 90)t;
+        // background-color: darken($background-color, 90);
         font-weight: 700;
         border: none !important;
     }
 
     & .card-body{
-        background-color: darken($background-color, 10%);
+        // background-color: darken($background-color, 10%);
     }
 }
 

@@ -2,12 +2,12 @@
 <div class="container-fluid main-container">
     <main *ngIf="offer" class="container-fluid p-0">
         <div class="row">
-            <div class="col-12 col-md-5">
+            <div class="col-12 col-md-7 col-lg-8 img-box">
                 <h2 class="main-heading my-2">Order your {{ offer.title }}</h2>
                 <!-- <img [src]="offer.imgURL" class="img-fluid mb-2 item-img" [alt]="offer.title"> -->
                 <div *ngIf="offer.imgurl" class="item-img-box">
                     <!-- <img [src]="imgURL" class="item-img" [alt]="title"> -->
-                    <div id="carousel" class="carousel" [ngClass]="{'slide': offer.imgurl.length > 1}" data-bs-ride="carousel">
+                    <div id="offerCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <img [src]="offer.imgurl[0]" alt="" class="d-block item-img">
@@ -16,18 +16,18 @@
                                 <img [src]="url" alt="" class="d-block item-img">
                             </div>
                         </div>
-                        <button *ngIf="offer.imgurl.length > 1" class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                        <button *ngIf="offer.imgurl.length > 1" class="carousel-control-prev" type="button" data-bs-target="#offerCarousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button *ngIf="offer.imgurl.length > 1" class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                        <button *ngIf="offer.imgurl.length > 1" class="carousel-control-next" type="button" id="next-btn" data-bs-target="#offerCarousel" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-7">
+            <div class="col-12 col-md-5 col-lg-4">
                 <div class="container-fluid p-0">
                     <div class="row justify-content-center">
                         <div class="col-12">
@@ -51,6 +51,11 @@
                             <div class="card">
                                 <div class="card-body">
                                     <p>{{ offer.long_description }}</p>
+                                    <p>Designed by {{ offer.artist }}</p>
+                                    <p>Medium: {{ offer.medium }}</p>
+                                    <p>{{ offer.dimension }}</p>
+                                    <p>{{ offer.orientation }}</p>
+                                    <p>{{ offer.year }}</p>
                                 </div>
                             </div>
                         </div>
@@ -64,14 +69,24 @@
             <p class="p-3 not-found">Sorry, we couldn't find what you're searching for.</p>
         </div>
     </main>
-    <div class="row">
+    <div *ngIf="relatedOffers.length" class="row">
         <div class="col-12">
-            <h2 class="my-2 pt-3 main-heading">Take a look at these amazing samples</h2>
+            <h2 class="my-2 pt-3 main-heading">You may also like</h2>
         </div>
     </div>
-    <div *ngIf="relatedOffers" class="row">
-        <div *ngFor="let offer of relatedOffers" class="col-12 col-md-6 col-lg-4 offers">
+    <div *ngIf="relatedOffers.length" class="row">
+        <div *ngFor="let offer of relatedOffers" class="col-6 col-md-4 col-lg-3 offers">
             <art-service-item [service]="offer"></art-service-item>
+        </div>
+    </div>
+    <div *ngIf="latestOffers | async" class="row">
+        <div class="col-12">
+            <h2 class="my-2 pt-3 main-heading">Newly Featured Products</h2>
+        </div>
+    </div>
+    <div *ngIf="latestOffers | async" class="row">
+        <div *ngFor="let l_offer of latestOffers | async" class="col-6 col-md-4 col-lg-3 offers">
+            <art-service-item [service]="l_offer"></art-service-item>
         </div>
     </div>
 </div>

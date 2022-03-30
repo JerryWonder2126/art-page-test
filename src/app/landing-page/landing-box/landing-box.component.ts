@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Params, Router } from '@angular/router';
 
 @Component({
@@ -11,6 +11,7 @@ export class LandingBoxComponent implements OnInit {
   @Input() title!: string;
   @Input() imgUrl!: string;
   @Input() uhash!: string;
+  @Output() sectionClicked: EventEmitter<any> = new EventEmitter<any>();
   urlString!: string;
   queryParams!: Params;
 
@@ -20,9 +21,13 @@ export class LandingBoxComponent implements OnInit {
     this.queryParams = {'section': this.uhash, 'title': this.title};
   }
 
+  changeSection(): void {
+    this.sectionClicked.emit();
+  }
+
   openSection () {
     this.router.navigate(['section'], {
-      queryParams: this.queryParams
+      queryParams: {'section': this.uhash, 'title': this.title}
     });
   }
 

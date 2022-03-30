@@ -10,9 +10,14 @@
         </div>
         <div *ngIf="offer" class="modal-body">
             <h2>{{ offer.title }}</h2>
-            <p>Short Description: {{ offer.price | currency:'NGN':'₦' }}</p>
+            <p>Price: {{ offer.price | currency:'NGN':'₦' }}</p>
             <p>Short Description: {{ offer.short_description }}</p>
             <p>Long Description: {{ offer.long_description }}</p>
+            <p>Artist: {{ offer.artist }}</p>
+            <p>Medium: {{ offer.medium }}</p>
+            <p>Dimension: {{ offer.dimension }}</p>
+            <p>Orientation: {{ offer.orientation }}</p>
+            <p>Year: {{ offer.year }}</p>
             <div class="img-list">
                 <img *ngFor="let image of offer.imgurl" [src]="image" [alt]="offer.title" class="">
             </div>

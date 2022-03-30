@@ -5,8 +5,13 @@
     align-items: center;
     box-shadow: 0px -4px 4px darken($background-color, 5%);
     color: $font-light;
+    z-index: 100;
+    padding: 0.9rem;
+    flex-direction: column;
 
-    @include lg {
-        display: flex !important
+    & .social-icon {
+        width: 20px;
+        height: 20px;
+        margin: 0 0.5em;
     }
 }

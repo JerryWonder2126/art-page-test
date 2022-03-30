@@ -11,7 +11,6 @@ class ImageSnippet {
 })
 export class OrderFormComponent implements OnInit {
   fd = new FormData();
-  price: string = 'single';
 
   constructor() { }
 
@@ -19,15 +18,5 @@ export class OrderFormComponent implements OnInit {
   }
 
   processForm(formObject: NgForm) {}
-
-  processImage(image: any) {
-    const file: File = image.files[0];
-    const reader = new FileReader();
-
-    reader.addEventListener('load', (event: any) => {
-      this.fd.append('image', (new ImageSnippet(event.target.result, file)).file);
-    });
-    
-  }
 
 }

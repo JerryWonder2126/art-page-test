@@ -54,6 +54,10 @@ export class OffersService {
     return this._offers.getValue();
   }
 
+  getLatestOffers() {
+    return this.backendService.getLatestOffers();
+  }
+
   addOffer(form: FormData, section_hash: string): Observable<any> {
     return this.backendService.addOffer(form, section_hash).pipe(map(response => {
       const newOffer = response.rows as OfferInterface;
@@ -109,7 +113,7 @@ export class OffersService {
   }
 
   getOffer(offer_hash: string) {
-    return this._offers.getValue().find((value) => value.uhash === offer_hash);
+    return this.backendService.getOfferByHash(offer_hash);
   }
 
 }

@@ -1,9 +1,10 @@
-<div (click)="openSection()" class="card landing-box">
+<div class="card landing-box">
     <img [src]="imgUrl" class="card-img" [alt]="title">
     <div class="card-img-overlay">
       <div>
         <h5 class="mb-3 card-title">{{ title }}</h5>
-        <button type="button" class="btn btn-light py-2 px-3 call-to-action-btn">View Category</button>
+        <button type="button" (click)="openSection()" class="btn btn-light py-2 px-3 call-to-action-btn d-block d-md-none">View Category</button>
+        <button type="button" (click)="changeSection()" class="btn btn-light py-2 px-3 call-to-action-btn d-none d-md-block">Expand Category</button>
       </div>
     </div>
 </div>

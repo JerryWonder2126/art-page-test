@@ -1,7 +1,12 @@
 <art-navigation [services]="services"></art-navigation>
 <main class="container-fluid main-container">
-  <div class="text-uppercase row d-flex align-items-center justify-content-center">
-    <div class="col-12 col-sm-7 ">
+  <div class="row">
+    <div class="col-12 col-md-6 mb-2 mb-md-none d-flex justify-content-center align-items-center">
+        <div class="img-box">
+          <img src="assets/contact.jpg" class="img-fluid contact-img" alt="contact sinaartz">
+        </div>
+    </div>
+    <div class="col-12 col-md-6 d-flex align-items-center">
       <fieldset class="my-3">
         <legend>Contact ME</legend>
         <form #contactForm="ngForm" (ngSubmit)="processForm(contactForm)">
@@ -15,7 +20,7 @@
                 <textarea ngModel name="message" class="form-control" id="msgField" rows="3" placeholder="Enter your message here..." required></textarea>
             </div>
             <div class="row justify-content-center">
-              <div class="col-6">
+              <!-- <div class="col-6">
                 <button type="submit" [ngClass]="{'disabled': !contactForm.valid}" class="btn btn-light btn-md submit-btn">Send as Mail
                   <img src="assets/icons/email.png" class="btn-icon" style="width: 30px;" alt="email icon">
                 </button>
@@ -24,16 +29,64 @@
                 <button (click)="sendToWhatsapp(contactForm)" type="button" [ngClass]="{'disabled': !contactForm.valid}" class="btn btn-light btn-md submit-btn">Send to whatsapp
                   <img src="assets/icons/whatsapp.png" class="btn-icon" alt="whatsapp icon">
                 </button>
-              </div>
+              </div> -->
               <div class="col">
-                <button (click)="sendToTelegram(contactForm)" type="button" [ngClass]="{'disabled': !contactForm.valid}" class="btn btn-light btn-md submit-btn mt-2">Send to telegram
+                <button (click)="sendToTelegram(contactForm)" type="button" [ngClass]="{'disabled': !contactForm.valid}" class="btn btn-light btn-md submit-btn mt-2">
+                  Send
                   <img src="assets/icons/telegram.png" class="btn-icon" alt="telegram icon">
                 </button>
               </div>
             </div>
           </form>
     </fieldset>
-    </div>
-  </div>
+        <!-- <button type="button" (click)="toContactPage()" class="btn btn-dark btn-md d-none d-sm-block contact-btn">connect with me!</button> -->
+  </div> 
+</div>
 </main>
+
+<div class="container-fluid d-flex justify-content-center align-items-center services-section">
+  <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+          <div class="carousel-item active">
+              <div class="card">
+                  <img src="assets/about.jpg" class="card-img" alt="contact sinaartz">
+                  <div class="card-img-overlay">
+                      <h2 class="card-title">About Us</h2>
+                      <p class="card-text">You can’t use calculations with normal SassScript operations like + and *. </p>
+                  </div>
+              </div>
+          </div>
+          <div *ngFor="let service of services | async" class="carousel-item">
+              <div class="card">
+                  <img [src]="service.imgurl" class="card-img" [alt]="service.title">
+                  <div class="card-img-overlay">
+                      <h2 class="card-title">{{service.title}}</h2>
+                      <button type="button" (click)="openSection(service.uhash, service.title)" class="btn btn-light py-2 px-3 call-to-action-btn d-block d-md-none">View Category</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+      </button>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div *ngIf="latestOffers | async" class="row">
+      <div class="col-12">
+          <h2 class="my-2 main-heading">Newly Featured Products</h2>
+      </div>
+  </div>
+  <div *ngIf="latestOffers | async" class="row gy-2">
+      <div *ngFor="let l_offer of latestOffers | async" class="col-6 col-md-4 col-lg-3 offers">
+          <art-service-item [service]="l_offer"></art-service-item>
+      </div>
+  </div>
+</div>
 <art-footer></art-footer>

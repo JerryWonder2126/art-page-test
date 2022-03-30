@@ -1,9 +1,8 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { MainDataInterface, OfferInterface, SectionInnerItemInterface, SectionItemInterface } from '../extra-packs/interfaces/general-interfaces';
-import { LoaderService } from '../services/loader/loader.service';
+import { OfferInterface, SectionItemInterface } from '../extra-packs/interfaces/general-interfaces';
 import { OffersService } from '../services/offers.service';
 
 @Component({
@@ -11,33 +10,34 @@ import { OffersService } from '../services/offers.service';
   templateUrl: './order-page.component.html',
   styleUrls: ['./order-page.component.scss']
 })
-export class OrderPageComponent implements OnInit, OnChanges {
+export class OrderPageComponent implements OnInit {
 
   offer_hash!: string;
   descState: boolean = true;
   formState: boolean = !this.descState;
-  offer!: OfferInterface | undefined;
-  relatedOffers!: any;
+  offer!: OfferInterface;
+  latestOffers!: Observable<OfferInterface[]>;
+  relatedOffers!: OfferInterface[];
   fd: FormData = new FormData();
   services!: Observable<SectionItemInterface[]>;
   btnClick = false; // To control autofocus when order button gets clicked on page
+  
 
   constructor(private offerService: OffersService, private route: ActivatedRoute) {
-    this.route.queryParams.subscribe(params => {
-      this.offer_hash = params.offer;
-      this.getOffer();
-    });
+    this.getOffer();
+    this.latestOffers = this.offerService.getLatestOffers();
+    this.relatedOffers = this.offerService.getCurrentOffers();
   }
 
   ngOnInit(): void {
-    this.relatedOffers = this.offerService.getCurrentOffers();
     this.services = this.offerService.services;
   }
 
-  ngOnChanges(): void { }
-
   getOffer() {
-    this.offer = this.offerService.getOffer(this.offer_hash);
+    this.route.queryParams.subscribe(params => {
+      this.offer_hash = params.offer;
+      this.offerService.getOffer(this.offer_hash).subscribe(resp => {this.offer = resp});
+    });
   }
 
   // getRelatedServices () {

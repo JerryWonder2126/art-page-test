@@ -1,24 +1,36 @@
 <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top" [ngClass]="{'menu-expanded': menuExpanded}">
         <div class="container-fluid">
-          <button #menuBtn class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <button #menuBtn class="navbar-toggler" (click)="toggleMenuValue()" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <a class="navbar-brand" [routerLink]="['/home']">SinaArtz</a>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
               <li class="nav-item">
                 <a class="nav-link" (click)="menuBtn.click()" routerLinkActive="active-nav" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/home']">Home</a>
               </li>
-              <li *ngFor="let service of services | async" class="nav-item">
-                <a class="nav-link" (click)="menuBtn.click()" routerLinkActive="active-nav" [routerLink]="['/', 'section']" [queryParams]="{'section': service.uhash, 'title': service.title}" [routerLinkActiveOptions]="{exact: true}">{{ service.title }}</a>
+              <li class="nav-item dropdown">
+                <a href="#" data-bs-toggle="dropdown" class="nav-link dropdown-toggle">Our Services</a>
+                <div class="dropdown-menu bg-dark">
+                  <a *ngFor="let service of services | async" class="nav-link" (click)="menuBtn.click()" routerLinkActive="active-nav" [routerLink]="['/', 'section']" [queryParams]="{'section': service.uhash, 'title': service.title}" [routerLinkActiveOptions]="{exact: true}">{{ service.title }}</a>
+                </div>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="menuBtn.click()" routerLinkActive="active-nav" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/about']">About Us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" (click)="menuBtn.click()" routerLinkActive="active-nav" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/contact']">Contact Us</a>
+              </li>
+              <!-- <li *ngFor="let service of services | async" class="nav-item">
+                <a class="nav-link" (click)="menuBtn.click()" routerLinkActive="active-nav" [routerLink]="['/', 'section']" [queryParams]="{'section': service.uhash, 'title': service.title}" [routerLinkActiveOptions]="{exact: true}">{{ service.title }}</a>
+              </li> -->
             </ul>
           </div>
         </div>
       </nav>
       
-    <nav class="navbar fixed-bottom d-lg-none d-sm-block bg-dark">
+    <nav class="navbar fixed-bottom d-sm-none d-block bg-dark">
         <div class="container-fluid">
             <a class="px-2 navbar-brand" [routerLink]="['/home']">
               <img src="assets/icons/home-icon.png" class="nav-icons" alt="home page icon">

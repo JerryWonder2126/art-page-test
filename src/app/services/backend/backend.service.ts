@@ -124,6 +124,16 @@ export class BackendService {
     });
   }
 
+  getOfferByHash(offer_hash: string) {
+    const getOffer$ = this.http.get<BackendResponseInterface>(`${this.OFFERS_URL}?uhash=${offer_hash}`);
+    return getOffer$.pipe(map(response => this.parseOffers(response.rows)[0] as OfferInterface));
+  }
+
+  getLatestOffers() {
+    const getOffer$ = this.http.get<BackendResponseInterface>(`${this.OFFERS_URL}?latest=${true}`);
+    return getOffer$.pipe(map(response => this.parseOffers(response.rows) as OfferInterface[]));
+  }
+
   getConnectLink(type: string, form: FormData) {
     return this.http.post<BackendResponseInterface>(`${this.BASE_URL}social/?type=${type}`, form).pipe(map(response => response.rows));
   }

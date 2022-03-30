@@ -1,16 +1,16 @@
 <art-navigation [services]="services"></art-navigation>
 <div class="main-container">
-    <main class="container-fluid mb-4 about-section">
-        <div class="row g-3">
+    <main class="container-fluid about-section">
+        <div class="row">
             <div autofocus class="col-12 d-block d-sm-none">
                 <h2 class="main-heading about-heading">Who is SinaArtz?</h2>
             </div>
-            <div class="col-12 col-sm-6 col-lg-5 d-flex justify-content-center align-items-center">
+            <div class="col-12 col-sm-6 mb-2 mb-sm-none">
                 <div class="img-box">
-                    <img src="assets/sample-box.png" class="img-fluid about-img" alt="">
+                    <img src="assets/about.jpg" class="img-fluid about-img" alt="">
                 </div>   
             </div>
-            <div class="col-12 col-sm-6 col-lg-7">
+            <div class="col-12 col-sm-6">
                 <h2 class="d-none d-sm-block main-heading about-heading">Who is SinaArtz?</h2>
                 <p class="about-text">
                     You can’t use calculations with normal SassScript operations like + and *. 
@@ -29,23 +29,26 @@
         </div>
     </main>
 
-    <div class="container-fluid mt-4 d-flex justify-content-center align-items-center services-section">
+    <div class="container-fluid d-flex justify-content-center align-items-center services-section">
         <div id="carousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <h2>First</h2>
-                    <p>You can’t use calculations with normal SassScript operations like + and *. </p>
-                    <img src="assets/sample-box.png" alt="" class="d-block carousel-img">
+                    <div class="card">
+                        <img src="assets/contact.jpg" class="card-img" alt="contact sinaartz">
+                        <div class="card-img-overlay">
+                            <h2 class="card-title">Contact Us</h2>
+                            <p class="card-text">You can’t use calculations with normal SassScript operations like + and *. </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="carousel-item">
-                    <h2>Second</h2>
-                    <p>You can’t use calculations with normal SassScript operations like + and *. </p>
-                    <img src="assets/sample-box.png" alt="" class="d-block carousel-img">
-                </div>
-                <div class="carousel-item">
-                    <h2>Third</h2>
-                    <p>You can’t use calculations with normal SassScript operations like + and *. </p>
-                    <img src="assets/sample-box.png" alt="" class="d-block carousel-img">
+                <div *ngFor="let service of services | async" class="carousel-item">
+                    <div class="card">
+                        <img [src]="service.imgurl" class="card-img" [alt]="service.title">
+                        <div class="card-img-overlay">
+                            <h2 class="card-title">{{service.title}}</h2>
+                            <button type="button" (click)="openSection(service.uhash, service.title)" class="btn btn-light py-2 px-3 call-to-action-btn d-block d-md-none">View Category</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
@@ -56,6 +59,19 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div *ngIf="latestOffers | async" class="row">
+            <div class="col-12">
+                <h2 class="my-2 main-heading">Newly Featured Products</h2>
+            </div>
+        </div>
+        <div *ngIf="latestOffers | async" class="row gy-2">
+            <div *ngFor="let l_offer of latestOffers | async" class="col-6 col-md-4 col-lg-3 offers">
+                <art-service-item [service]="l_offer"></art-service-item>
+            </div>
         </div>
     </div>
 </div>

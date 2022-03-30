@@ -13,6 +13,7 @@ export class NavigationComponent implements OnInit {
 
   @Input() services!: Observable<SectionItemInterface[]>;
   @Output() NavBtnClicked: EventEmitter<any> = new EventEmitter<any>();
+  menuExpanded: boolean = false;
 
   constructor (private offersService: OffersService, private router: Router) {  }
 
@@ -23,5 +24,9 @@ export class NavigationComponent implements OnInit {
     this.router.navigate(['section'], {
       queryParams: queryParams
     });
+  }
+
+  toggleMenuValue () {
+    this.menuExpanded = !this.menuExpanded;
   }
 }

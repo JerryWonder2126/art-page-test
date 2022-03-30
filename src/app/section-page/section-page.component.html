@@ -5,8 +5,8 @@
             <h2 class="main-heading">Collection of {{ title }}</h2>
         </div>
     </div>
-    <div *ngIf="offers | async" class="row gy-2 d-flex justify-content-center">
-        <div *ngFor="let service of offers | async" class="col col-12 col-sm-6 col-lg-4">
+    <div *ngIf="offers | async" class="row gy-2 offers-div">
+        <div *ngFor="let service of offers | async" class="col-6 col-md-4 col-lg-3">
             <art-service-item [service]="service"></art-service-item>
         </div>
     </div>

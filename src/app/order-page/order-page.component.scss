@@ -8,28 +8,35 @@
         color: $font-light;
     }
 
-    & .item-img {
+    & .item-img-box {
+        box-shadow: 1px 1px black;
         border-radius: 20px;
     }
 
+    & .item-img {
+        border-radius: 20px;
+        width: 100%;
+    }
+
     & .navtab {
+        margin-top: 1em;
         display: grid;
         grid-template-columns: 1fr 1fr;
 
         & .navtabs:first-of-type {
             border-right: 3px solid $font-dark;
-            border-top-left-radius: 20px;
-            border-bottom-left-radius: 20px;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
         }
 
         & .navtabs:last-of-type {
-            border-top-right-radius: 20px;
-            border-bottom-right-radius: 20px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
         }
 
         & .navtabs {
             background-color: $font-light;
-            text-transform: uppercase;
+            text-transform: capitalize;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -37,12 +44,11 @@
             & h5 {
                 color: $font-dark;
                 font-weight: 700;
-                // padding: 0;
                 margin: 0.5em 0;
+                font-size: 1em;
             }
 
             & h5.active {
-                // padding-bottom: 0.1em;
                 border-bottom: 3px solid $font-dark;
             }
 
@@ -50,7 +56,6 @@
                 cursor: pointer;
 
                 & h5 {
-                    // padding-bottom: 0.1em;
                     border-bottom: 3px solid $font-dark;
                     transition: border-bottom 0.2s ease-in;
                 }
@@ -61,11 +66,9 @@
     & .itemBox {
         
         & .card .card-body {
-            border: 2px solid $font-light !important;
             background-color: unset !important;
             color: $font-light;
-            border-radius: 20px;
-            transform: scale3d(2);
+            padding: 0px;
         }
     }
 
@@ -73,32 +76,4 @@
         margin: 1em 0;
     }
 
-    @include sm {
-        main {
-            // height: 85vh;
-
-            & .item-img {
-                width: 380px;
-                height: 380px;
-            }
-        }
-        & .navtab {
-            & .navtabs:first-of-type, & .navtabs:last-of-type {
-                // border-radius: unset;
-                margin-top: 1.2em;
-            }
-        }
-    }
-
-    @include md {
-        main {
-            // height: 85vh;
-
-            & .item-img {
-                width: 100%;
-                height: unset;
-                max-height: 80%;
-            }
-        }
-    }
 }

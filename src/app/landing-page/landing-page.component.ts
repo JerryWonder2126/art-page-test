@@ -27,4 +27,8 @@ export class LandingPageComponent implements OnInit {
     });
   }
 
+  changeSection = (offer: SectionItemInterface) => {
+    this.activeSection = offer;
+  };
+
 }

@@ -3,12 +3,21 @@
 .main-container {
     color: $font-light;
     min-height: $section-height;
+    padding: 1em 1em 1em 1em;
+
+    & .img-box {
+        & .contact-img {
+            border-radius: 20px;
+            box-shadow: 3px 3px 4px darken($background-color, 10%);
+        }
+    }
+    
 
     & .submit-btn {
         // border: 2px solid $font-light;
         width: 100%;
         height: 100%;
-        text-transform: uppercase;
+        text-transform: capitalize;
         text-align: center;
 
         & .btn-icon {
@@ -16,20 +25,31 @@
             display: none;
             opacity: 0;
         }
+    }
+
+    & fieldset {
+        width: 100%;
+        margin: auto;
 
         @include md {
-            // &:hover {
-            //     background: $font-light;
-            //     color: $font-dark;
-            //     font-weight: 500;
-            //     transition: background-color 0.2s ease-in, color 0.2s ease-in;
-    
-            //     & .btn-icon {
-            //         display: inline-block;
-            //         opacity: 1;
-            //         transition: opacity 0.2s ease-in;
-            //     }
-            // }
+            width: 80%;
+        }
+    }
+}
+
+.services-section {
+    & .carousel {
+        padding: 0.5em;
+        color: $font-light;
+        border-radius: 20px;
+        width: 100vw;
+        max-width: 930px;
+        & .carousel-inner {
+            position: relative;
+            & img {
+                filter: brightness(80%);
+                border-radius: 20px;
+            }
         }
     }
 }

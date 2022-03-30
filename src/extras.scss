@@ -31,6 +31,19 @@ $lg-size: map-get($grid-breakpoints, 'lg');
     }
 }
 
+@mixin u-sm {
+    @media (min-width: #{$sm-size}) {
+        @content;
+    }
+}
+
+@mixin o-sm {
+    @media (min-width: #{$sm-size}) and (max-width: #{$lg-size}) {
+        @content;
+    }
+}
+
+
 // Variables
 $section-height: calc(100vh - 110px);
 $background-color: rgba(0, 0, 0, 0.884);

@@ -2,36 +2,71 @@
 
 main {
     color: $font-light;
-    // padding-bottom: 1em;
-    // padding-top: 1em;
-    // min-height: $section-height;
-    & .main-section {
-        max-width: 740px;
+    position: relative;
+
+    @include u-sm {
+        & .sm-landing-div {
+            margin: 0.5rem 0;
+            display: block;
+
+            & .main-section {
+                // height: 100%;
+                justify-content: center;
+                align-items: center;
+
+                & .card {
+                    max-width: 800px;
+                    margin: 0 auto;
+                }
+            }
+    
+            & .other-sections {
+                position: relative;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                padding-bottom: 5rem;
+
+                & > div {
+                    width: 50%;
+                    max-width: 18rem;
+                    margin: 0.5rem;
+                }
+
+            }
+        }
+        
     }
-    & .other-sections {
-        display: flex;
-        flex-wrap: nowrap;
 
-        & div {
-            display: inline;
-            height: 10em;
-        }
+    @include lg {
+        & .sm-landing-div {
+            height: 80vh;
+            margin: 0.5rem 0;
 
-        @include sm {
-            padding: 1em;
-            flex-wrap: wrap;
-            overflow-y: hidden;
-            height: 20vh;
-            // justify-content: end;
-        }
+            & .main-section {
+                flex: 3;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
 
-        @include md {
-            padding: 1em;
-            flex-wrap: wrap;
-            overflow-x: hidden;
-            overflow-y: scroll;
-            height: 90vh;
-            justify-content: end;
+                & .card {
+                    max-width: 660px;
+                    margin: auto;
+                }
+            }
+    
+            & .other-sections {
+                flex: 1;
+                height: 100%;
+                overflow-x: hidden;
+                overflow-y: scroll;
+
+                & > div {
+                    width: unset;
+                    max-width: unset;
+                }
+
+            }
         }
     }
 }

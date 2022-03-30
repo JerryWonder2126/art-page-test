@@ -6,7 +6,7 @@
     align-items: center;
     border-radius: 20px;
     // border: 2px solid $font-light !important;
-    width: 300px;
+    // width: 300px;
     // height: 100%;
     // margin: 4em 0.2em;
     
@@ -42,6 +42,6 @@
     }
 
     @include sm {
-        width: unset;
+        // width: unset;
     }
 }

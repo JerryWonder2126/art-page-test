@@ -9,7 +9,7 @@
 
     & .nav-link {
         color: $font-light;
-        text-transform: uppercase;
+        text-transform: capitalize;
         text-align: center;
     }
 
@@ -20,5 +20,43 @@
     & .nav-icons {
         width: 30px;
         height: 30px;
+    }
+
+    @include u-sm {
+        & .navbar-nav {
+            display: flex;
+            align-items: flex-end;
+        }
+    }
+}
+
+.menu-expanded {
+    height: 100vh;
+    align-items: flex-start;
+
+    & .navbar-collapse {
+        height: 80vh;
+        & ul {
+            display: flex;
+            align-items:stretch;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+
+            & > li {
+                margin: 1em;
+            }
+
+            & .dropdown {
+                position: relative;
+            }
+
+            & .dropdown-menu {
+                border: none;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
     }
 }

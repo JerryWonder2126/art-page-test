@@ -1,47 +1,20 @@
 <form #orderForm="ngForm" (ngSubmit)="processForm(orderForm)">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col col-12">
-                <div class="form-group mb-2">
-                    <label class="form-label" for="name">Name<span class="required-mark">*</span></label>
-                    <input class="form-control" type="text" name="name" id="name" ngModel required>
-                </div>
-            </div>
-            <div class="col col-12">
-                <div class="form-group mb-2">
-                    <label class="form-label" for="email">Email<span class="required-mark">*</span></label>
-                    <input class="form-control" pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" name="email" id="email" ngModel required>
-                </div>
-            </div>
-            <div class="col col-12">
-                <div class="form-group mb-2">
-                    <label class="form-label" for="image">Select your image<span class="required-mark">*</span></label>
-                    <input ngModel #imageInput class="form-control" type="file" accept="image/*" (change)="processImage(imageInput)" name="image" id="image" required>
-                </div>
-            </div>
-            <div class="col col-12">
-                <div class="form-check mb-2">
-                    <input class="form-check-input" type="radio" name="price" id="flexRadioDefault1" value="single" [(ngModel)]="price">
-                    <label class="form-check-label" for="flexRadioDefault1">
-                      Single person on a picture - $20K
-                    </label>
-                  </div>
-                  <div class="form-check mb-2">
-                    <input [(ngModel)]="price" class="form-check-input" type="radio" name="price" id="flexRadioDefault2" value="double">
-                    <label class="form-check-label" for="flexRadioDefault2">
-                      Two persons on a picture - $35K
-                    </label>
-                </div>
-            </div>
-            <div class="col col-12">
-                <div class="form-group mb-2">
-                    <label class="form-label" for="description">Any other thing?</label>
-                    <textarea ngModel name="description" id="description" class="form-control"></textarea>
-                </div>
-            </div>
-            <div class="col col-12">
-                <input [ngClass]="{'disabled': !orderForm.valid}" class="btn btn-outline-light btn-md form-control" type="submit" value="Now!">
-            </div>
-        </div>
+    <div class="">
+        <p class="form-text">Kindly fill this form to place your order with me. The information you provide are only used to contact you.</p>
+    </div>
+    <div class="form-group mb-2">
+        <label class="form-label" for="name">Name<span class="required-mark">*</span></label>
+        <input class="form-control" type="text" name="name" id="name" ngModel required>
+    </div>
+    <div class="form-group mb-2">
+        <label class="form-label" for="email">Email<span class="required-mark">*</span></label>
+        <input class="form-control" pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" name="email" id="email" ngModel required>
+    </div>
+    <div class="form-group mb-2">
+        <label class="form-label" for="description">Any other thing you'll like to specify?</label>
+        <textarea ngModel name="description" id="description" class="form-control"></textarea>
+    </div>
+    <div class="form-group mb-2">
+        <input [ngClass]="{'disabled': !orderForm.valid}" class="btn btn-outline-light btn-md form-control" type="submit" value="Place Order">
     </div>    
 </form>

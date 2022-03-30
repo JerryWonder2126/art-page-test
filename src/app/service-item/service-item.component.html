@@ -9,15 +9,14 @@
     </div>
 </div> -->
 
-<div class="item-card">
-    <div *ngIf="service.imgurl" class="item-img-box">
-        <img [src]="service.imgurl[0]" class="item-img" [alt]="service.title">
-    </div>
-        
-    <div class="item-note d-flex align-items-center">
-        <div>
-            <p><span class="pre-text">Selling for</span> <br> <span class="item-price">{{ service.price | currency:'NGN':'₦' }}</span> <br> {{ service.short_description }}</p>  
+<div class="card- item-card">
+    <img [src]="service.imgurl[0]" class="card-img-top item-img" [alt]="service.title">
+    <div class="card-body">
+        <!-- <div> -->
+            <p><span class="pre-text">Selling for </span> <span class="item-price">{{ service.price | currency:'NGN':'₦' }}</span></p> 
+            <p *ngIf="service.artist">{{ service.artist }}</p>
+            <p *ngIf="service.dimension">{{ service.dimension }}</p>
             <button (click)="orderButtonClicked()" class="btn btn-md btn-outline-light border-2 order-btn">Place Order</button>   
-        </div> 
+        <!-- </div>  -->
     </div>
 </div>

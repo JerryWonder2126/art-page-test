@@ -13,18 +13,37 @@
             <div class="col-12 col-sm-6">
                 <h2 class="d-none d-sm-block main-heading about-heading">Who is SinaArtz?</h2>
                 <p class="about-text">
-                    You can’t use calculations with normal SassScript operations like + and *. 
-                    If you want to write some math functions that allow calculations just write 
-                    them within their own calc() expressions—if they’re passed a bunch of numbers 
-                    with compatible units, they’ll return plain numbers as well, and if they’re passed 
-                    calculations they’ll return calculations.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Quia cum perferendis architecto eius explicabo cumque, reprehenderit provident 
+                    quis ab praesentium maiores fugit et rem deleniti beatae distinctio doloribus, natus aperiam?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. In cum, perferendis ducimus, 
+                    libero illum aliquid delectus assumenda sequi, 
+                    laboriosam impedit omnis placeat ratione voluptates officia atque quod eligendi itaque quisquam?
                 </p>
-                <button type="button" (click)="toContactPage()" class="btn btn-dark btn-md d-none d-sm-block contact-btn">connect with me!</button>
+                <h5 class="mt-md-5">Connect with us!</h5>
+                <div>
+                    <a href="https://twitter.com/JosephJSJeremi1" target="blank">
+                      <img class="social-icon" src="assets/icons/twitter.png" alt="SinaArtz twitter">
+                    </a>
+                    <a href="https://facebook.com/culext2126/" target="blank">
+                      <img class="social-icon" src="assets/icons/facebook.png" alt="SinaArtz facebook">
+                    </a>
+                    <a href="https://wa.me/07057570146?text=Hello%20SinaArtz." target="blank">
+                      <img class="social-icon" src="assets/icons/whatsapp.png" alt="SinaArtz whatsapp">
+                    </a>
+                    <a href="https://t.me/SinaArtsBot" target="blank">
+                      <img class="social-icon" src="assets/icons/telegram.png" alt="SinaArtz telegram">
+                    </a>
+                    <a href="https://instagram.com/culext200" target="blank">
+                      <img class="social-icon" src="assets/icons/instagram.png" alt="SinaArtz instagram">
+                    </a>
+                  </div>
+                <button type="button" (click)="toContactPage()" class="btn btn-dark btn-md d-none d-sm-block contact-btn">contact us!</button>
             </div> 
         </div>
         <div class="row my-2 d-block d-sm-none">
             <div class="col d-flex justify-content-end">
-                <button type="button" (click)="toContactPage()" class="btn btn-dark btn-md contact-btn">connect with me!</button>
+                <button type="button" (click)="toContactPage()" class="btn btn-dark btn-md contact-btn">contact us!</button>
             </div>
         </div>
     </main>
@@ -62,7 +81,7 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid mb-3">
         <div *ngIf="latestOffers | async" class="row">
             <div class="col-12">
                 <h2 class="my-2 main-heading">Newly Featured Products</h2>

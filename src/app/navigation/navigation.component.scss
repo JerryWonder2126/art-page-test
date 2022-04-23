@@ -14,12 +14,18 @@
     }
 
     & .active-nav {
-        color: red;
+        color: rgba(212, 61, 23, 0.959);
     }
 
     & .nav-icons {
         width: 30px;
         height: 30px;
+    }
+
+    & .social-icon {
+        width: 20px;
+        height: 20px;
+        margin: 0 0.5em;
     }
 
     @include u-sm {
@@ -47,6 +53,10 @@
                 margin: 1em;
             }
 
+            & a {
+                text-transform: capitalize;
+            }
+
             & .dropdown {
                 position: relative;
             }
@@ -58,5 +68,6 @@
                 transform: translateX(-50%);
             }
         }
+
     }
 }

@@ -3,6 +3,9 @@
     <header>
         <h1><a class="navbar-brand" [routerLink]="['/home']">SinaArtz</a></h1>
     </header>
+    <div>
+        <button (click)="handleLoginState()" class="btn btn-primary">{{ loggedIn ? 'logout' : 'login' }}</button>
+    </div>
     <div *ngIf="!offersVisibility" class="row" [ngClass]="{'fade': offersVisibility}">
         <art-section-modal (deleteButtonClicked)="deleteSection(activeService.uhash)" [service]="activeService"></art-section-modal>
         <div class="col-12 head-section">

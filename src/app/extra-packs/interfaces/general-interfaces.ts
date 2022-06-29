@@ -67,4 +67,8 @@ export interface IState {
     offersVisibility: boolean,
     activeOffer: OfferInterface,
     activeService: SectionItemInterface
+}
+
+export interface IAuthStatus {
+    active: boolean
   }

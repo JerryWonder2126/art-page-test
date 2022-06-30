@@ -1,3 +1,5 @@
+@import "../../../extras.scss";
+
 .container {
     width: 100%;
     max-width: 750px;
@@ -36,8 +38,21 @@
         }
     }
 
-    & td button {
-        margin: 0.2em;
+    & .action-btns {
+
+        & button.action-btn {
+            margin: 0.2em;
+            width: 6em;
+        }
+
+        @include sm {
+            text-align: center;
+
+            & button.action-btn {
+                margin: 0.2em;
+                width: auto;
+            }
+        }
     }
 
     & .preview-img {

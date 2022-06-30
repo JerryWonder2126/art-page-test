@@ -36,8 +36,10 @@ export class ManageOffersComponent implements OnInit {
         short_description: '',
         long_description: '',
         imgurl: [],
-        price: 0,
-        section_hash: this.section_hash || ''
+        price: 10000,
+        section_hash: this.section_hash || '',
+        status: 'on sale',
+        year: new Date().getFullYear()
       };
     }
     this.imageNames = this.offer.imgurl;
@@ -45,9 +47,9 @@ export class ManageOffersComponent implements OnInit {
 
   processForm(form: NgForm) {
     if (form.valid) {
-      if(!this.update) {
+      if (!this.update) {
         this.saveOffer(form);
-      }else {
+      } else {
         this.updateOffer(form);
       }
     }

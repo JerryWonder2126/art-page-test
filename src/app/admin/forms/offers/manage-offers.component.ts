@@ -43,6 +43,7 @@ export class ManageOffersComponent implements OnInit {
       };
     }
     this.imageNames = this.offer.imgurl;
+    console.log(this.offer);
   }
 
   processForm(form: NgForm) {

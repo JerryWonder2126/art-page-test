@@ -129,6 +129,7 @@ export class MainPageComponent implements OnInit, OnChanges {
   editOffer(offer: OfferInterface) {
     this.setActiveOffer(offer);
     this.editOfferVisible = true;
+    console.log(this.offersVisibility);
   }
 
   previewOffer(offer: OfferInterface) {

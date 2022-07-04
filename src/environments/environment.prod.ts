@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseURL: 'https://sinaartz-test.herokuapp.com/api/v1'
+  baseURL: 'https://sinaartz.herokuapp.com/api/v1'
 };

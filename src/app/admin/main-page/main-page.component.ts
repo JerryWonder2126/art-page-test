@@ -2,9 +2,7 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { OfferInterface, SectionItemInterface, IState } from 'src/app/extra-packs/interfaces/general-interfaces';
-import { AdminService } from 'src/app/services/admin/admin.service';
 import { BackendService } from 'src/app/services/backend/backend.service';
-import { OffersService } from 'src/app/services/offers.service';
 
 @Component({
   selector: 'art-main-page',
@@ -26,10 +24,8 @@ export class MainPageComponent implements OnInit, OnChanges {
   loggedIn!: boolean;
 
   constructor(
-    private adminService: BackendService, 
     private authService: BackendService, 
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -37,8 +33,8 @@ export class MainPageComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.services = this.adminService.sections;
-    this.offers = this.adminService.offers;
+    this.services = this.authService.sections;
+    this.offers = this.authService.offers;
     this.setState();
     if (this.offersVisibility) {
       this.loadOffers(this.activeService.uhash);
@@ -89,7 +85,7 @@ export class MainPageComponent implements OnInit, OnChanges {
 
   toggleOffersVisibility(section?: SectionItemInterface) {
     const useSection = section ? section : this.activeService;
-    this.adminService.getOffersForService(useSection.uhash);
+    this.authService.getOffersForService(useSection.uhash);
     this.setActiveService(useSection);
     this.offersVisibility = !this.offersVisibility;
     this.savedState.offersVisibility = this.offersVisibility;
@@ -97,13 +93,13 @@ export class MainPageComponent implements OnInit, OnChanges {
   }
 
   deleteSection(section_hash: string) {
-    this.adminService.deleteSection(section_hash)?.subscribe(response => {
+    this.authService.deleteSection(section_hash)?.subscribe(response => {
     });
   }
 
   deleteOffer(section_hash: string, offer_hash?: string) {
     if (offer_hash) {
-      this.adminService.deleteOffer(offer_hash, section_hash)?.subscribe();
+      this.authService.deleteOffer(offer_hash, section_hash)?.subscribe();
     }
   }
 
@@ -123,7 +119,7 @@ export class MainPageComponent implements OnInit, OnChanges {
   }
 
   loadOffers(section_hash: string) {
-    this.adminService.getOffersForService(section_hash);
+    this.authService.getOffersForService(section_hash);
   }
 
   editOffer(offer: OfferInterface) {
@@ -137,14 +133,8 @@ export class MainPageComponent implements OnInit, OnChanges {
     this.previewOfferVisible = true;
   }
 
-  handleLoginState() {
-    if (this.loggedIn) {
-      // process logout
-      this.authService.logout();
-    } else {
-      // process login
-      this.authService.login();
-    }
+  logout() {
+    this.authService.logout();
   }
 
 }

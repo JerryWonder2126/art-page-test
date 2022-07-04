@@ -1,11 +1,11 @@
 
 <div class="container">
-    <header>
+    <header class="d-flex justify-content-between">
         <h1><a class="navbar-brand" [routerLink]="['/home']">SinaArtz</a></h1>
+        <div class="d-flex align-items-center">
+            <button class="btn btn-outline-warning text-uppercase" (click)="logout()">logout</button>
+        </div>
     </header>
-    <div>
-        <button (click)="handleLoginState()" class="btn btn-primary">{{ loggedIn ? 'logout' : 'login' }}</button>
-    </div>
     <div *ngIf="!offersVisibility" class="row" [ngClass]="{'fade': offersVisibility}">
         <art-section-modal (deleteButtonClicked)="deleteSection(activeService.uhash)" [service]="activeService"></art-section-modal>
         <div class="col-12 head-section">
@@ -87,9 +87,9 @@
                         <div class="action-btns">
                             <button type="button" class="btn btn-danger action-btn" (click)="setActiveOffer(offer)" 
                             data-bs-toggle="modal" data-bs-target="#offerDeleteModal">delete</button>
-                            <button type="button" class="btn btn-secondary  action-btn" (click)="editOffer(offer)">edit</button>
+                            <button type="button" class="btn btn-secondary action-btn" (click)="editOffer(offer)">edit</button>
                             <!-- <button (click)="toggleOffersVisibility(offer.uhash)" class="btn btn-warning">offers</button> -->
-                            <button type="button" class="btn btn-primary  action-btn" (click)="previewOffer(offer)">preview</button>
+                            <button type="button" class="btn btn-primary action-btn" (click)="previewOffer(offer)">preview</button>
                         </div>
                     </div>
                 </div>

@@ -69,3 +69,8 @@ export interface IState {
     activeOffer: OfferInterface,
     activeService: SectionItemInterface
 }
+
+export interface IAuthDetails {
+    email: string;
+    password: string;
+}

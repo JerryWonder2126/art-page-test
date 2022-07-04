@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, finalize } from 'rxjs/operators';
 import { LoaderService } from '../services/loader/loader.service';
 import { Router } from '@angular/router';
@@ -37,7 +37,7 @@ export class NetworkInterceptor implements HttpInterceptor {
           this.router.navigateByUrl('auth');
         }
       }
-      return [];
+      return throwError(err);
     }));
   }
 }

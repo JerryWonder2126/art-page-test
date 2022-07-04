@@ -4,6 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "dev": "ng serve -c development",
+    "local": "ng serve -c local",
     "prod": "node ../backend/dist/index.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",

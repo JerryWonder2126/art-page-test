@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { BackendResponseInterface, OfferInterface, SectionItemInterface } from 'src/app/extra-packs/interfaces/general-interfaces';
+import { BackendResponseInterface, IAuthDetails, OfferInterface, SectionItemInterface } from 'src/app/extra-packs/interfaces/general-interfaces';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class BackendService {
   private BASE_URL = environment.baseURL;
   private SECTIONS_URL = `${this.BASE_URL}/sections/`;
   private OFFERS_URL = `${this.BASE_URL}/offers/`;
-  private API_BASE_URL = `${this.BASE_URL}/auth`;
+  private AUTH_BASE_URL = `${this.BASE_URL}/auth/native`;
 
   private _sections: BehaviorSubject<SectionItemInterface[]> = new BehaviorSubject<SectionItemInterface[]>([]);
 
@@ -168,10 +168,12 @@ export class BackendService {
     return this.http.post<BackendResponseInterface>(`${this.BASE_URL}social/?type=${type}`, form).pipe(map(response => response.rows));
   }
 
-  login() {
-    const presentURL = location.href;
-    const loginURL = `${this.API_BASE_URL}/?callback=${presentURL}`;
-    window.open(loginURL);
+  login(authDetails: IAuthDetails) {
+    // const presentURL = location.href;
+    // const loginURL = `${this.API_BASE_URL}/?callback=${presentURL}`;
+    // window.open(loginURL);
+    console.log(JSON.stringify(authDetails));
+    return this.http.post(this.AUTH_BASE_URL, authDetails);
   }
 
   logout(next='/') {

@@ -1,9 +1,24 @@
-<div class="container-fluid">
-    <div class="row justify-content-center align-items-center">
-        <div class="col col-10 col-md-6 text-center">
-            <h1>Authentication checkpoint</h1>
-            <p class="text-danger">You need to be verified to access requested resource.</p>
-            <button (click)="handleLoginState()" class="btn btn-primary w-100 text-uppercase">login</button>
+<div class="container-fluid d-flex justify-content-center align-items-center"> 
+    <form class="text-light" #loginForm="ngForm" method="post">
+        <div class="text-center">
+            <h1 class="text-uppercase">Authentication checkpoint</h1>
+            <p class="text-danger">You need to be verified to access admin area.</p>
+            <p *ngIf="error" class="alert alert-danger">{{ error }}</p>
         </div>
-    </div>
+        <div class="">
+            <label for="email">Email</label>
+            <input type="email" pattern="[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}" class="form-control" #email (change)="formChange(email)" [(ngModel)]="authDetails.email" name="email" id="email" required>
+        </div>
+        <div class="">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" #password (change)="formChange(password)" [(ngModel)]="authDetails.password" name="password" id="password" required>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+            <p class="m-0">Forgot password? <a href="#">Reset it.</a></p>
+            <input type="submit" (click)="handleLoginState(loginForm)" class="btn btn-primary" value="login" [ngClass]="{'disabled': !loginForm.valid}">
+        </div>
+        <div class="text-center">
+            <p>Copyright&COPY; SinaArtz {{ presentYear }}. All rights reserved.</p>
+        </div>
+    </form>
 </div>
